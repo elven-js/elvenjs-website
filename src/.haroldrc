@@ -1,0 +1,4 @@
+{
+  mdFilesDirName: 'docs',
+  mdFilesLayoutsDirName: 'docs-layouts'
+}

@@ -1,0 +1,90 @@
+// Center small image in markdown without html
+// example in markdown: ![alt text](![alt text](/assets/image.png?style=centered)
+img[src$='centered'] {
+  display: block;
+  margin: 0 auto;
+}
+
+img[src$='shadowed'] {
+  display: block;
+  max-width: 100%;
+  box-shadow: 0px 0px 20px 3px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+// Responsive container for video, codepen etc. iframes
+.embeded-media-container {
+  height: 0;
+  margin-bottom: 0.88889rem;
+  overflow: hidden;
+  padding-bottom: 67.5%;
+  padding-top: 1.38889rem;
+  position: relative;
+}
+.embeded-media-container.vimeo {
+  padding-top: 0;
+}
+.embeded-media-container iframe,
+.embeded-media-container object,
+.embeded-media-container embed,
+.embeded-media-container video {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  border: 0;
+}
+
+// Info, Warning, Error docs boxes
+
+.docs-box {
+  width: 100%;
+  padding: 20px;
+  border-left: 3px solid;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  .underlined-text {
+    text-decoration: underline;
+  }
+
+  .strong-text {
+    font-weight: 600;
+  }
+}
+
+.docs-box-centered {
+  text-align: center;
+}
+
+.docs-info-box {
+  @extend .docs-box;
+  border-color: rgb(54, 131, 255);
+  background-color: rgba(54, 131, 255, 0.1);
+}
+
+.docs-error-box {
+  @extend .docs-box;
+  border-color: rgb(228, 59, 59);
+  background-color: rgba(228, 59, 59, 0.1);
+}
+
+.docs-warning-box {
+  @extend .docs-box;
+  border-color: rgb(245, 123, 1);
+  background-color: rgba(245, 123, 1, 0.1);
+}
+
+.next-page-link {
+  margin-top: 50px;
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}

@@ -1,0 +1,19 @@
+$color-main-dark: #000000;
+$color-main-light: #fff;
+$color-main-contrast: #037dd6;
+$color-main-contrast2: #F6F9FB;
+$color-main-borders: darken($color-main-light, 8%);
+$color-background: #f2f4f6;
+
+$font-family-main: 'Poppins', sans-serif;
+
+$size-header-sapace: 100px;
+$size-header-height: 100px;
+$size-footer-height: 120px;
+$size-docs-sidebar-left-width: 280px;
+$size-docs-sidebar-right-width: 250px;
+
+$z-index-full-screen-overlay: 5;
+$z-index-main-header: 4;
+$z-index-docs-sidebar-left-menu-icon: 3;
+$z-index-docs-sidebar-left: 2;

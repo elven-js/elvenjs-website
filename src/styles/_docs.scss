@@ -1,0 +1,254 @@
+// Start: Docs header anchor links styles
+[data-js-doc-header-wrapper] {
+  position: relative;
+}
+
+[data-js-doc-header-anchor] {
+  position: absolute;
+  top: -$size-header-height;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+[data-js-doc-header] {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    [data-js-doc-header-link] {
+      display: inline-block;
+    }
+  }
+}
+
+[data-js-doc-header-link] {
+  margin-left: 15px;
+  display: none;
+  color: $color-main-dark;
+
+  .gg-link {
+    color: inherit;
+  }
+}
+// End: Docs header anchor links styles
+
+.docs-layout {
+  position: relative;
+}
+
+.docs-sidebar-left {
+  max-width: $size-docs-sidebar-left-width;
+  width: 100%;
+  overflow-y: auto;
+  position: fixed;
+  top: $size-header-height;
+  bottom: 0;
+  left: 0;
+  padding: 50px 30px;
+  background-color: $color-main-contrast2;
+  border-right: 1px solid $color-main-borders;
+  transition: transform 0.3s;
+  z-index: $z-index-docs-sidebar-left;
+
+  &.js-sidebar-left-visible {
+    transform: none;
+  }
+
+  @media screen and (max-width: 1024px) {
+    transform: translateX(-100%);
+  }
+}
+
+.docs-sidebar-left-header {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.docs-sidebar-left-menu-icon {
+  display: none;
+  position: absolute;
+  left: 30px;
+  top: -30px;
+  z-index: $z-index-docs-sidebar-left-menu-icon;
+  cursor: pointer;
+
+  @media screen and (max-width: 1024px) {
+    display: block;
+    top: 0;
+  }
+}
+
+.docs-content {
+  margin-left: $size-docs-sidebar-left-width;
+  margin-right: $size-docs-sidebar-right-width;
+  width: auto;
+  padding: 0 30px;
+  line-height: 1.6;
+
+  h1 {
+    margin-top: 0;
+    border-bottom: 1px solid $color-main-borders;
+    padding-bottom: 25px;
+    margin-bottom: 35px;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 0;
+    border-top: 1px solid $color-main-borders;
+    padding-top: 25px;
+    margin-top: 35px;
+  }
+
+  a {
+    color: $color-main-contrast;
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: 1280px) {
+    margin-right: 0;
+  }
+
+  @media screen and (max-width: 1024px) {
+    margin-left: 0;
+  }
+
+  @media screen and (max-width: 600px) {
+    padding: 0;
+  }
+}
+
+.docs-content-edit-button {
+  text-align: right;
+  font-size: 13px;
+  margin-top: 25px;
+  
+  a {
+    padding: 5px 15px;
+    font-weight: 600;
+    border-radius: 6px;
+    border: 1px solid $color-main-contrast;
+    text-decoration: none;
+  }
+
+  @media screen and (max-width: 1024px) {
+    margin-bottom: 30px;
+  }
+}
+
+.docs-home {
+  margin-right: 0;
+}
+
+.docs-sidebar-right {
+  width: $size-docs-sidebar-right-width;
+  max-height: 100%;
+  overflow-y: auto;
+  position: fixed;
+  top: $size-header-height;
+  margin-top: 30px;
+  right: 0;
+  padding: 10px 0;
+  border-left: 1px solid $color-main-borders;
+  line-height: 1.6;
+  font-weight: 400;
+
+  a {
+    font-size: 13px;
+    text-decoration: none;
+    color: $color-main-dark;
+    line-height: 1.1;
+    display: inline-block;
+
+    &:hover {
+      color: $color-main-contrast;
+    }
+  }
+
+  @media screen and (max-width: 1280px) {
+    display: none;
+  }
+}
+
+.docs-sidebar-right-item {
+  padding: 0 25px;
+  position: relative;
+  margin: 3px 0;
+
+  &.js-docs-active-header {
+    a {
+      color: $color-main-contrast;
+    }
+
+    &:before {
+      position: absolute;
+      content: " ";
+      display: block;
+      width: 2px;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      background-color: $color-main-contrast;
+    }
+  }
+}
+
+.docs-sidebar-right-title {
+  font-weight: 900;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+
+.docs-articles-list {
+  margin-bottom: 20px;
+}
+
+.docs-articles-list-out-link {
+  display: flex;
+  align-items: center;
+
+  [class^=gg-] {
+    display: inline-block;
+    margin-right: 12px;
+    transform: scale(0.7) rotate(45deg);
+    min-width: 10px;
+  }
+}
+
+.docs-articles-list--title {
+  font-size: 14px;
+  line-height: 1.3;
+  margin-bottom: 10px;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &.js-sidebar-left-menu-active {
+      color: $color-main-contrast;
+    }
+  }
+}
+
+.js-selected-menu-item {
+  font-weight: 500;
+  position: relative;
+
+  &:after {
+    content: "\27A4";
+    position: absolute;
+    right: 0;
+  }
+}

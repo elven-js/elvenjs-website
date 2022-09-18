@@ -1,0 +1,18 @@
+{{> head description=excerpt fullWidth=true githubUrl=githubUrl}}
+
+<div class="container-full-width docs-layout">
+  {{> docs-sidebar-left}}
+  <section class="docs-content" data-js-doc-content>
+    <div class="docs-content-edit-button">
+      {{#if githubUrl}}<a href="{{githubUrl}}">Suggest a change</a>{{/if}}
+    </div>
+    <h1>{{title}}</h1>
+    {{{content}}}
+  </section>
+  <div class="docs-sidebar-right" data-js-doc-sidebar-right>
+    <div class="docs-sidebar-right-title">Contents</div>
+    {{!-- js injected contents goes here --}}
+  </div>
+</div>
+
+{{> footer docs=true}}
