@@ -44,24 +44,22 @@ Because Elven.js is just a JavaScript file, you can import it from CDN and start
 Let's see how to import it from the CDN:
 
 ```html
-
 <html>
   <body>
     <script type="module">
       import { ElvenJS } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
-
       const initElven = async () => {
-      const isInitialized = await ElvenJS.init(
-        {
-          apiUrl: 'https://devnet-api.elrond.com',
-          chainType: 'devnet',
-          apiTimeout: 10000,
-          onLoginPending: () => {},
-          onLoggedIn: () => {},
-          onLogout: () => {},
-        }
-      );
-    }
+        const isInitialized = await ElvenJS.init(
+          {
+            apiUrl: 'https://devnet-api.elrond.com',
+            chainType: 'devnet',
+            apiTimeout: 10000,
+            onLoginPending: () => {},
+            onLoggedIn: () => {},
+            onLogout: () => {},
+          }
+        );
+      }
     </script>
   </body>
 </html>
