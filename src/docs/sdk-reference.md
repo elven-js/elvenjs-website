@@ -56,7 +56,7 @@ The primary initialization function. It is responsible for synchronizing with th
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
 
     const initElven = async () => {
       const isInitialized = await ElvenJS.init(
@@ -92,7 +92,7 @@ enum LoginMethodsEnum {
 }
 
 interface LoginOptions {
-  qrCodeContainerId?: string;
+  qrCodeContainer?: string | HTMLElement;
   token?: string;
 }
 ```
@@ -102,7 +102,7 @@ One interface for logging in with all possible auth providers. It is the core fu
 **Arguments**:
 
 - `loginMethod`: one of four login methods (ledger, maiar-mobile, web-wallet, maiar-browser-extension) (for now, two of them are implemented)
-- `options` as options, you can pass the `token`, which is a unique string that can be used for signature generation and user verification. You can also define `qrCodeContainerId`, the DOM element id in which the maiar-mobile QR code will be displayed
+- `options` as options, you can pass the `token`, which is a unique string that can be used for signature generation and user verification. You can also define `qrCodeContainer`, the DOM element id or DOM element in which the maiar-mobile QR code will be displayed
 
 **Usage example**:
 
@@ -116,7 +116,7 @@ One interface for logging in with all possible auth providers. It is the core fu
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -137,7 +137,9 @@ One interface for logging in with all possible auth providers. It is the core fu
       .addEventListener('click', async () => {
         try {
           await ElvenJS.login('maiar-mobile', {
-            qrCodeContainerId: 'qr-code-container',
+            // You can also use the DOM element here: 
+            // qrCodeContainer: document.querySelector('#qr-code-container')
+            qrCodeContainer: 'qr-code-container',
           });
         } catch (e) {
           console.log(
@@ -171,7 +173,7 @@ Logout function will remove the localStorage entries. It will work the same with
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -222,7 +224,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
       Address,
       TransactionPayload,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -305,7 +307,7 @@ Querying smart contracts is possible with this function. You must pass the smart
       AddressValue,
       ContractFunction,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -407,7 +409,7 @@ import {
   Address,
   ContractCallPayloadBuilder,
   ContractFunction
-} from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
 ```
 
 There will probably be more of them, but the ElvenJS library should be as small as possible. Maybe some of them will land in separate libraries like the planned query results parser library.

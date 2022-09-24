@@ -44,7 +44,7 @@ To be able to login you need to initialize ElvenJs and then use the login functi
     // import ElvenJS parts from CDN 
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -87,7 +87,9 @@ To be able to login you need to initialize ElvenJs and then use the login functi
       .addEventListener('click', async () => {
         try {
           await ElvenJS.login('maiar-mobile', {
-            qrCodeContainerId: 'qr-code-container',
+            // You can also use the DOM element here: 
+            // qrCodeContainer: document.querySelector('#qr-code-container')
+            qrCodeContainer: 'qr-code-container',
           });
         } catch (e) {
           console.log('Login: Something went wrong, try again!', e?.message);
@@ -138,7 +140,7 @@ For this example, let's omit the code responsible for initialization and auth. Y
       Address,
       TransactionPayload,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
 
     // (...) Init and login logic here, check how above
 
@@ -219,7 +221,7 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
       Transaction,
       Address,
       TokenPayment,
-    } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
 
     // (...) Init and login logic here, check how above 
 
@@ -296,7 +298,7 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
       Transaction,
       Address,
       TokenPayment,
-    } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 
@@ -375,7 +377,7 @@ We will query the minter smart contract to get the number of NFTs already minted
       Transaction,
       Address,
       TokenPayment,
-    } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 

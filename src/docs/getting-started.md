@@ -47,7 +47,7 @@ Let's see how to import it from the CDN:
 <html>
   <body>
     <script type="module">
-      import { ElvenJS } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
+      import { ElvenJS } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
 
       const initElven = async () => {
         const isInitialized = await ElvenJS.init(
@@ -68,7 +68,7 @@ Let's see how to import it from the CDN:
 </html>
 ```
 
-As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.4.0: `elven.js@0.4.0`).
+As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.5.0: `elven.js@0.5.0`).
 
 You can check the demo examples linked on the homepage.
 
@@ -105,6 +105,12 @@ onMount(() => {
 ```
 
 Because of the ability to adapt to any frontend framework Elven.js is an excellent choice for all widget-like implementations. Imaging WordPress or Shopify plugins with it. Or, for example, simple donation widgets for static hobby websites. You can find such an example here: [elrond-donate-widget-demo.netlify.app](https://elrond-donate-widget-demo.netlify.app/).
+
+## Demo video
+
+<div class="embeded-media-container">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/tcTukpkjcQw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## Summary
 
