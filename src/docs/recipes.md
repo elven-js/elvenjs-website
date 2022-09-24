@@ -16,11 +16,11 @@ githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/r
 
 In this section, we will check real-world examples. Of course, you can also check the code in many demos linked on the homepage. Let's see the most common cases here.
 
-Remember that you can use the ElvenJS not only in static websites but let's focus only on such ones for simplicity. Check the linked demos on StackBlitz to learn how to use it with Astro or SolidJS.
+Remember that you can use the ElvenJS not only in static websites but let's focus only on such ones for simplicity. Check the linked demos on StackBlitz to learn how to use it, for example, with Astro or SolidJS.
 
 ### How to login and logout with auth providers
 
-ElvenJS offers two of four auth providers for now. They are the Maiar mobile app and Maiar browser extension. There will also be support for the Elrond Web Wallet and Ledger Nano.
+ElvenJS offers two of four auth providers for now. They are the [Maiar Mobile app](https://get.maiar.com/referral/rdmfba3md2) and [Maiar browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm). There will also be support for the Elrond [Web Wallet](https://wallet.elrond.com/) and [Ledger Nano](https://www.ledger.com/) and Ledger Nano.
 
 To be able to login you need to initialize ElvenJs and then use the login function:
 
@@ -94,10 +94,12 @@ To be able to login you need to initialize ElvenJs and then use the login functi
         }
       });
 
+    // Add event listener for logout button
     document
       .getElementById('button-logout')
       .addEventListener('click', async () => {
         try {
+          // Trigger the ElvenJS logout
           const isLoggedOut = await ElvenJS.logout();
         } catch (e) {
           console.error(e.message);
@@ -108,13 +110,13 @@ To be able to login you need to initialize ElvenJs and then use the login functi
 </html>
 ```
 
-After using one of the login methods, your data will be kept in the localStorage for further usage and synchronization. No worries, nothing private, and it will stay in your browser.
+After using one of the login methods, your data will be kept in the localStorage for further usage and synchronization. No worries, nothing private.
 
 From now on, you can sign and send transactions.
 
 ### How to send EGLD 
 
-Let's not copy the part of the code responsible for initialization and auth here. You can check it above. Let's focus on the EGLD operations:
+For this example, let's omit the code responsible for initialization and auth. You can check it above. Let's focus on the EGLD operations:
 
 ```html
 <html>
@@ -138,11 +140,11 @@ Let's not copy the part of the code responsible for initialization and auth here
       TokenPayment
     } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
 
-    // Init and login logic here, check how above ...
+    // (...) Init and login logic here, check how above
 
     const egldTransferAddress = 'erd17a4wydhhd6t3hhssvcp9g23ppn7lgkk4g2tww3eqzx4mlq95dukss0g50f';
 
-    // Added event for predefined EGLD transaction
+    // Event listener for predefined EGLD transaction
     document
       .getElementById('button-tx')
       .addEventListener('click', async () => {
@@ -184,16 +186,15 @@ Let's not copy the part of the code responsible for initialization and auth here
 </html>
 ```
 
+As you can see, more logic is involved in building the transaction here. It could look not very easy, but generally, it is just an object created with a couple of helpers exported from erdjs SDK. So it is very similar to how you would do this with erdjs.
 
-As you can see, more logic is related to building the transaction here. It could look not very easy, but generally, it is just an object created with a couple of helpers exported from erdjs SDK. So it is very similar to how you would do this with erdjs.
+Transactions are handled in very similar ways. They only need different payload structures and builders. You will find the whole list of them in the [SDK reference](/docs/sdk-reference.html).
 
-Transactions are handled in very similar ways. There are only different payload structures and builders. You will find the whole list of them in the [SDK reference](/docs/sdk-reference.html).
-
-Oh, and by the way, the transaction here is predefined, but you could have your logic that could take all the values from some form, etc.
+Oh, and by the way, the transaction here is predefined, but you could have your logic that could take all the values from some form, user action etc.
 
 ### How to send ESDT 
 
-The same here. Let's not focus on initialization and login here. You can check it in the first point.
+The same here. Let's not focus on initialization and login. You can check it above in the first point.
 
 Below you will find an example of the ESDT transfer. What is ESDT? These are tokens on the Elrond network that you can create for yourself. Please read more about them [here](https://docs.elrond.com/tokens/esdt-tokens/).
 
@@ -220,13 +221,12 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
       TokenPayment,
     } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
 
-    // Init and login logic here, check how above ...
+    // (...) Init and login logic here, check how above 
 
-
-    // Simple ESDT transfer transaction
+    // ESDT address for demo purpose
     const esdtTransferAddress = 'erd17a4wydhhd6t3hhssvcp9g23ppn7lgkk4g2tww3eqzx4mlq95dukss0g50f';
 
-    // Added event for triggering the predefined ESDT transaction
+    // Event listener for triggering the predefined ESDT transaction
     document
       .getElementById('button-tx-esdt')
       .addEventListener('click', async () => {
@@ -298,7 +298,7 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
       TokenPayment,
     } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
 
-    // Init and login logic here, check how above ...
+    // (...) Init and login logic here, check how above ...
 
     // Here is the Elven Tools demo minter smart contract on the devnet
     // The one we will be calling to mint the NFT
@@ -377,7 +377,7 @@ We will query the minter smart contract to get the number of NFTs already minted
       TokenPayment,
     } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
 
-    // Init and login logic here, check how above ...
+    // (...) Init and login logic here, check how above ...
 
     // Here we have the wallet address for which we want to check the number of minted NFTs
     const minterAddress = "erd1druav0mlt7wzutla33kw80ueaalmec7mz2hus5svdmzlfj286qpstg674t";
@@ -409,6 +409,7 @@ We will query the minter smart contract to get the number of NFTs already minted
           // We know that it should be a number, so we can simply decode it using
           // helper functions like base64 to decimal hex
           // and then parse the hex number
+          // You'll find an example of such helper tool in the example directory in the repository
           const hexVal = base64ToDecimalHex(results?.returnData?.[0]);
           updateQueryResultContainer(`➡️ The result of the query is: ${parseInt(hexVal, 16)}`);
         } catch (e) {

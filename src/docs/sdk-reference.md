@@ -16,15 +16,17 @@ githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/s
 
 The Elven.js tool will be as simple as possible. It exports a couple of helper functions. It also exports several data structures (types) from [erdjs](https://docs.elrond.com/sdk-and-tools/erdjs/erdjs/) libraries. Here you will find a description of all the parts, and then you can check the [recipes](/docs/recipes.html) section for real-world examples.
 
-Worth mentioning. Remember to check the source code, written in Typescript, so it should be simple to read. You will find all the source files here: [elven.js/src](https://github.com/juliancwirko/elven.js/tree/main/src).
+Worth mentioning. Remember to check the source code, written in Typescript. You will find all the source files here: [elven.js/src](https://github.com/juliancwirko/elven.js/tree/main/src).
 
 ### Initialization
 
+**Function**:
 ```typescript
-// function
 await ElvenJS.init(initOptions: InitOptions)
+```
 
-// arguments types
+**Typings**:
+```typescript
 interface InitOptions {
   apiUrl: string;
   chainType: string;
@@ -39,9 +41,9 @@ The primary initialization function. It is responsible for synchronizing with th
 
 **Arguments**:
 
-- `apiUrl`Elrond API URL can be the public or private instance,
-- `chainType`Chain type identification can be devnet, testnet, or mainnet,
-- `apiTimeout`: The API calls a timeout in milliseconds. Maximum 10000,
+- `apiUrl`Elrond API URL - can be the public or private instance,
+- `chainType`Chain type identification - can be devnet, testnet, or mainnet,
+- `apiTimeout`: The API call timeout in milliseconds. Maximum 10000,
 - `onLoginPending`: On login pending callback. It is used across all the auth providers,
 - `onLoggedIn`: On logged in callback. It is used across all the auth providers,
 - `onLogout`: On logout callback. It is used across all the auth providers
@@ -75,11 +77,13 @@ The primary initialization function. It is responsible for synchronizing with th
 
 ### Login
 
+**Function**:
 ```typescript
-// function
 await ElvenJS.login(loginMethod: LoginMethodsEnum, options?: LoginOptions)
+```
 
-// arguments types
+**Typings**:
+```typescript
 enum LoginMethodsEnum {
   ledger = 'ledger', // not implemented yet
   maiarMobile = 'maiar-mobile',
@@ -148,11 +152,12 @@ One interface for logging in with all possible auth providers. It is the core fu
 
 ### Logout
 
+**Function**:
 ```typescript
 await ElvenJS.logout()
 ```
 
-Logout function will remove the localStorage entries. I will work with every auth provider.
+Logout function will remove the localStorage entries. It will work the same with each auth provider.
 
 **No arguments**.
 
@@ -188,9 +193,12 @@ Logout function will remove the localStorage entries. I will work with every aut
 
 ### Signing and sending transactions
 
+**Function**:
 ```typescript
 await ElvenJS.signAndSendTransaction(transaction: Transaction)
 ```
+
+**Typings**:
 
 `Transaction` is the erdjs exported [Transaction](https://github.com/ElrondNetwork/elrond-sdk-erdjs/blob/main/src/transaction.ts) class.
 
@@ -252,10 +260,14 @@ You can also see the transaction instance here. There is a couple of classes exp
 
 ### Query smart contracts
 
+**Function**:
 ```typescript
 // function
 await ElvenJS.queryContract(queryArgs: SmartContractQueryArgs)
+```
 
+**Typings**:
+```typescript
 interface QueryArguments {
   func: IContractFunction;
   args?: TypedValue[];
@@ -268,16 +280,16 @@ interface SmartContractQueryArgs extends QueryArguments {
 }
 ```
 
-`QueryArguments` is the erdjs exported [QueryArguments]() type. 
+`QueryArguments` is the erdjs exported [QueryArguments](https://github.com/ElrondNetwork/elrond-sdk-erdjs/blob/main/src/smartcontracts/interface.ts) type. 
 Querying smart contracts is possible with this function. You must pass the smart contract address, function name (smart contract endpoint), and arguments (if it takes any). The value and caller are optional.
 
 **Arguments**:
 
-- `address` - IAddress interface from erdjs, you will get it by `new Address(<string_addres>)`
-- `func` - IContractFunction interface from erdjs, you will get it by `new ContractFunction('<function_name>')`
-- `args` - TypedValue array, you will get it by using one of many helpers like `U32Value`, `AddressValue`, `BytesValue`, etc. You'll learn more about it later
+- `address` - `IAddress` interface from erdjs, you will get it by `new Address(<string_addres>)`
+- `func` - `IContractFunction` interface from erdjs, you will get it by `new ContractFunction('<function_name>')`
+- `args` - `TypedValue` array, you will get it by using one of many helpers like `U32Value`, `AddressValue`, `BytesValue`, etc. You'll learn more about it later
 - `value` - the value to transfer. It is optional or can be set to 0
-- `caller` - also Iaddress interface, the same as an address, also optional
+- `caller` - also `Iaddress` interface, the same as an address, also optional
 
 **Usage example**: 
 
@@ -358,6 +370,7 @@ The storage key is `elvenjs_state`.
 
 ### Destroy and cleanup
 
+**Function**:
 ```typescript
 ElvenJS.destroy()
 ```
@@ -401,6 +414,6 @@ There will probably be more of them, but the ElvenJS library should be as small 
 
 ### Summary
 
-You can learn about all functions from ElvenJS. This set is limited, but it is a base for many use cases. The library will undoubtedly get some more in the future, but for now, this is enough to let you build dApps and widgets on your existing websites.
+You learned about all functions from ElvenJS. The library will undoubtedly get some more functionality in the future, but for now, this is enough to let you build dApps and widgets on your existing websites.
 
 Please check the [erdjs SDK](https://docs.elrond.com/sdk-and-tools/erdjs/erdjs/) tools for more info on some of the types and classes described here, and for sure, reading the [recipes](/docs/recipes.html) section will be beneficial.

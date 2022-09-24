@@ -17,7 +17,7 @@ githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/g
 
 Elven.js is a tool designed to work in browsers without any build steps and integrate Elrond blockchain and smart contracts built on it.
 
-The tool is a wrapper for [erdjs SDK](https://docs.elrond.com/sdk-and-tools/erdjs/erdjs/), a set of Typescript/Javascript libraries. But because the toolset is quite extensive and has a lot of Node module dependencies, there is a need for a simple browser-only library. The Elven.js aspire to be something like that - a helpful plug-and-play solution that will give you the most basic functionalities. 
+The tool is a wrapper for [erdjs SDK](https://docs.elrond.com/sdk-and-tools/erdjs/erdjs/) - a set of Typescript/Javascript libraries. But because the erdjs toolset is quite extensive and has a lot of Node module dependencies, there is a need for a simple browser-only library. The Elven.js aspire to be something like that - a helpful plug-and-play solution that will give you the most basic functionalities. 
 
 ## What Elven.js can do?
 
@@ -31,9 +31,9 @@ Besides authentication, Elven.js will also help with all the interactions, like 
 
 In the end, the Elven.js library is a simple browser-based JS script. You can copy it from the repository and use it as a local JavaScript file or import it directly from the CDN.
 
-The script is a wrapper for erdjs SDK, an official JavaScript SDK for usage in the Nodejs ecosystem. It can also be used in the browser but requires additional build steps and configuration, and the file itself will be huge. This is why Elven.js exists. 
+The script is a wrapper for erdjs SDK, an official JavaScript SDK for usage in the Nodejs ecosystem. Erdjs can also be used in the browser but requires additional build steps and configuration, and the file itself will be huge. This is why Elven.js exists. 
 
-Elven.js imports only crucial parts of the erdjs libraries. It will include the most used parts of the erdjs, which are essential for the browsers. All other functionality will be split into separate scripts, and it will be shipped as an optional script.
+Elven.js imports only crucial parts of the erdjs libraries. It will include the most used parts of the erdjs, which are essential for the browsers. All other functionality will be split into separate scripts, and it will be shipped as optional scripts in the future.
 
 Internally Elven.js uses Typescript, but finally, it is a standard minified JavaScript file. It can be used in static websites and frameworks like React, SolidJS, or Vue. It is worth mentioning that there are official tools for React already, so it will probably be a better choice to check them. You could also check the [Elrond NextJs dApp template](https://github.com/ElrondDevGuild/nextjs-dapp-template).
 
@@ -48,6 +48,7 @@ Let's see how to import it from the CDN:
   <body>
     <script type="module">
       import { ElvenJS } from 'https://unpkg.com/elven.js@0.4.0/build/elven.js';
+
       const initElven = async () => {
         const isInitialized = await ElvenJS.init(
           {
@@ -60,16 +61,18 @@ Let's see how to import it from the CDN:
           }
         );
       }
+
+      initElven();
     </script>
   </body>
 </html>
 ```
 
-As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (example from here: `elven.js@0.4.0`).
+As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.4.0: `elven.js@0.4.0`).
 
 You can check the demo examples linked on the homepage.
 
-If you work with a frontend framework that doesn't support the Elrond blockchain, you can also use the Elven.js tools, installing them as a dependency and then importing from it.
+If you work with a frontend framework for which no tools support the Elrond blockchain, you can also use the Elven.js tools, installing them as a dependency and then importing from it.
 
 ```bash
 npm install elven.js --save
@@ -105,4 +108,6 @@ Because of the ability to adapt to any frontend framework Elven.js is an excelle
 
 ## Summary
 
-Okay, so you know what Elven.js is and how to start using it. You have a lot of links to the demo applications on the homepage, so the best would be to check the code of each one. Then you will be ready to take a look at the [SDK reference](/docs/sdk-reference.html) and ready to use [recipes](/docs/recipes.html).
+Okay, so you know what Elven.js is and how to start using it. You are now ready to look at the [SDK reference](/docs/sdk-reference.html) and ready to use [recipes](/docs/recipes.html).
+ 
+Also, there are a lot of links to the demo applications on the homepage, so you could also check the code of each one.
