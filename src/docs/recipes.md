@@ -422,6 +422,33 @@ We will query the minter smart contract to get the number of NFTs already minted
 </html>
 ```
 
+### How to use the login token
+
+First of all, using the login token in only the frontend-based app isn't required. This is more like additional verification of the user on the backend side of your application.
+
+The login token is your unique hash or whatever you like that is passed when logging in and signed by your wallet using login auth providers. The signature is returned to your browser and saved in localStorage. Such a signature and token can then be sent to your custom backend, and with your public address, the backend can verify it. Then, for example, you could have a logic that will prepare the JWT token and send it back to the frontend app.
+
+The tools and logic required for verification on the backend are out of the scope of this library, but you can use erdjs for that on your Node backend. Here is an example and docs on how to do that:  [Elven Tools Dapp backend integration](https://www.elven.tools/docs/dapp-backend-integration.html#dapp-backend-integration).
+
+On the frontend part with Elven.js, you would only need to pass your token when logging in. This will look like that:
+
+```typescript
+(...)
+
+// The token is just an example, it can be anything
+ElvenJS.login('maiar-browser-extension', { token: "d052ee8c9acb023d521ef3" })
+
+(...)
+```
+
+Then you can get the signature:
+
+```typescript
+ElvenJS.storage.get('signature')
+```
+
+Then you will need to send three things to your backend, the signature, the token, and your public wallet address. On the backend, you will need to use erdjs and a couple of operations described in the link above to verify the signature.
+
 ### Working demos
 
 The demos are linked on the homepage, but let's bring them also here:
