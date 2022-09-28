@@ -5,10 +5,10 @@ publicationDate: "2022-09-19"
 tags:
   - intro
 excerpt: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
-ogTitle: "Elven.js - JavaScript SDK for Elrond blockchain - Recipes!"
+ogTitle: "Elven.js - JavaScript Elrond SDK for browsers - Recipes!"
 ogDescription: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
 ogUrl: "https://www.elvenjs.com/docs/recipes.html"
-twitterTitle: "Elven.js - JavaScript SDK for Elrond blockchain - Recipes!"
+twitterTitle: "Elven.js - JavaScript Elrond SDK for browsers - Recipes!"
 twitterDescription: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
 twitterUrl: "https://www.elvenjs.com/docs/recipes.html"
 githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/recipes.md"

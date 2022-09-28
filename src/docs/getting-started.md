@@ -5,10 +5,10 @@ publicationDate: "2022-09-20"
 tags:
   - intro
 excerpt: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
-ogTitle: "Elven.js - JavaScript SDK for Elrond blockchain - get started!"
+ogTitle: "Elven.js - JavaScript Elrond SDK for browsers - get started!"
 ogDescription: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
 ogUrl: "https://www.elvenjs.com/docs/getting-started.html"
-twitterTitle: "Elven.js - JavaScript SDK for Elrond blockchain - get started!"
+twitterTitle: "Elven.js - JavaScript Elrond SDK for browsers - get started!"
 twitterDescription: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
 twitterUrl: "https://www.elvenjs.com/docs/getting-started.html"
 githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/getting-started.md"
