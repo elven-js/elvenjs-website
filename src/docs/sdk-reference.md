@@ -34,6 +34,11 @@ interface InitOptions {
   onLoginPending?: () => void;
   onLoggedIn?: () => void;
   onLogout?: () => void;
+  onTxStarted: (tx: Transaction) => { uiPending(true); },
+  onTxFinalized: (tx: Transaction) => {
+    tx?.hash && updateTxHashContainer(tx.hash);
+    uiPending(false);
+  }
 }
 ```
 
@@ -46,7 +51,9 @@ The primary initialization function. It is responsible for synchronizing with th
 - `apiTimeout`: The API call timeout in milliseconds. Maximum 10000,
 - `onLoginPending`: On login pending callback. It is used across all the auth providers,
 - `onLoggedIn`: On logged in callback. It is used across all the auth providers,
-- `onLogout`: On logout callback. It is used across all the auth providers
+- `onLogout`: On logout callback. It is used across all the auth providers,
+- `onTxStarted`: On transactions started callback. It is used across all the auth providers. You can use the transaction payload's current state,
+- `onTxFinalized`: On transactions finalized callback. It is used across all the auth providers. You can use the transaction payload's current state.
 
 **Usage example**:
 
@@ -56,10 +63,10 @@ The primary initialization function. It is responsible for synchronizing with th
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
 
     const initElven = async () => {
-      const isInitialized = await ElvenJS.init(
+      await ElvenJS.init(
         {
           apiUrl: 'https://devnet-api.elrond.com',
           chainType: 'devnet',
@@ -67,6 +74,8 @@ The primary initialization function. It is responsible for synchronizing with th
           onLoginPending: () => { /* do something when login pending */ },
           onLoggedIn: () => { /* do something when logged in */ },
           onLogout: () => { /* do something when logged out */ },
+          onTxStarted: (tx) => { /* do something when transaction started */ },
+          onTxFinalized: (tx) => { /* do something when transaction was finalized */ }
         }
       );
     }
@@ -87,12 +96,13 @@ await ElvenJS.login(loginMethod: LoginMethodsEnum, options?: LoginOptions)
 enum LoginMethodsEnum {
   ledger = 'ledger', // not implemented yet
   maiarMobile = 'maiar-mobile',
-  webWallet = 'web-wallet', // not implemented yet
+  webWallet = 'web-wallet',
   maiarBrowserExtension = 'maiar-browser-extension',
 }
 
 interface LoginOptions {
   qrCodeContainer?: string | HTMLElement;
+  callbackRoute?: string;
   token?: string;
 }
 ```
@@ -102,7 +112,7 @@ One interface for logging in with all possible auth providers. It is the core fu
 **Arguments**:
 
 - `loginMethod`: one of four login methods (ledger, maiar-mobile, web-wallet, maiar-browser-extension) (for now, two of them are implemented)
-- `options` as options, you can pass the `token`, which is a unique string that can be used for signature generation and user verification. You can also define `qrCodeContainer`, the DOM element id or DOM element in which the maiar-mobile QR code will be displayed
+- `options` as options, you can pass the `token`, which is a unique string that can be used for signature generation and user verification. You can also define `qrCodeContainer`, the DOM element id or DOM element in which the maiar-mobile QR code will be displayed, and `callbackRoute` used for web-wallet.
 
 **Usage example**:
 
@@ -116,7 +126,7 @@ One interface for logging in with all possible auth providers. It is the core fu
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -147,6 +157,16 @@ One interface for logging in with all possible auth providers. It is the core fu
           );
         }
       });
+
+    document
+      .getElementById('button-login-web')
+      .addEventListener('click', async () => {
+        try {
+          await ElvenJS.login('web-wallet', { callbackRoute: '/' });
+        } catch (e) {
+          console.log('Login: Something went wrong, try again!', e?.message);
+        }
+      });
   </script>
 </body>
 </html>
@@ -173,7 +193,7 @@ Logout function will remove the localStorage entries. It will work the same with
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -224,7 +244,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
       Address,
       TransactionPayload,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -248,7 +268,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
         });
 
         try {
-          const transaction = await ElvenJS.signAndSendTransaction(tx);
+          await ElvenJS.signAndSendTransaction(tx);
         } catch (e) {
           throw new Error(e?.message);
         }
@@ -307,7 +327,7 @@ Querying smart contracts is possible with this function. You must pass the smart
       AddressValue,
       ContractFunction,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -409,7 +429,7 @@ import {
   Address,
   ContractCallPayloadBuilder,
   ContractFunction
-} from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
 ```
 
 There will probably be more of them, but the ElvenJS library should be as small as possible. Maybe some of them will land in separate libraries like the planned query results parser library.

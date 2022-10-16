@@ -20,7 +20,7 @@ Remember that you can use the ElvenJS not only in static websites but let's focu
 
 ### How to login and logout with auth providers
 
-ElvenJS offers two of four auth providers for now. They are the [Maiar Mobile app](https://get.maiar.com/referral/rdmfba3md2) and [Maiar browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm). There will also be support for the Elrond [Web Wallet](https://wallet.elrond.com/) and [Ledger Nano](https://www.ledger.com/) and Ledger Nano.
+ElvenJS offers two of four auth providers for now. They are the [Maiar Mobile app](https://get.maiar.com/referral/rdmfba3md2), [Maiar browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm), and Elrond Web Wallet. There will also be support for the [Ledger Nano](https://www.ledger.com/) and Ledger Nano.
 
 To be able to login you need to initialize ElvenJs and then use the login function:
 
@@ -44,11 +44,11 @@ To be able to login you need to initialize ElvenJs and then use the login functi
     // import ElvenJS parts from CDN 
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
-      const isInitialized = await ElvenJS.init(
+      await ElvenJS.init(
         {
           // Define the API endpoint (can be custom one)
           apiUrl: 'https://devnet-api.elrond.com',
@@ -59,11 +59,14 @@ To be able to login you need to initialize ElvenJs and then use the login functi
           // Define login callback functions
           onLoginPending: () => { uiPending(true) },
           onLoggedIn: () => { uiLoggedInState(true); uiPending(false) },
-          onLogout: () => { uiLoggedInState(false);  },
+          onLogout: () => { uiLoggedInState(false); },
+          // Define transactions callbacks
+          onTxStarted: () => { uiPending(true); },
+          onTxFinalized: (tx) => { 
+            tx?.hash && updateTxHashContainer(tx.hash); uiPending(false);
+          }
         }
       );
-
-      uiLoggedInState(isInitialized);
     }
 
     // Trigger the async init function 
@@ -91,6 +94,18 @@ To be able to login you need to initialize ElvenJs and then use the login functi
             // qrCodeContainer: document.querySelector('#qr-code-container')
             qrCodeContainer: 'qr-code-container',
           });
+        } catch (e) {
+          console.log('Login: Something went wrong, try again!', e?.message);
+        }
+      });
+
+    // Add event listener for web login button 
+    // You can pass the callback url - the landing page after login on web wallet website
+    document
+      .getElementById('button-login-web')
+      .addEventListener('click', async () => {
+        try {
+          await ElvenJS.login('web-wallet', { callbackRoute: '/' });
         } catch (e) {
           console.log('Login: Something went wrong, try again!', e?.message);
         }
@@ -140,7 +155,7 @@ For this example, let's omit the code responsible for initialization and auth. Y
       Address,
       TransactionPayload,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
 
     // (...) Init and login logic here, check how above
 
@@ -172,14 +187,9 @@ For this example, let's omit the code responsible for initialization and auth. Y
         });
 
         try {
-          uiPending(true);
-          // Send the transaction, you will get the transaction object
-          const transaction = await ElvenJS.signAndSendTransaction(tx);
-          uiPending(false);
-          // Do something with the transaction hash
-          updateTxHashContainer(transaction.hash)
+          // Send the transaction
+          await ElvenJS.signAndSendTransaction(tx);
         } catch (e) {
-          uiPending(false);
           throw new Error(e?.message);
         }
       });
@@ -221,7 +231,7 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
       Transaction,
       Address,
       TokenPayment,
-    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
 
     // (...) Init and login logic here, check how above 
 
@@ -256,13 +266,9 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
         });
 
         try {
-          uiPending(true);
           // We use the same function as previously
           const transaction = await ElvenJS.signAndSendTransaction(tx);
-          uiPending(false);
-          updateTxHashContainer(transaction.hash)
         } catch (e) {
-          uiPending(false);
           throw new Error(e?.message);
         }
       });
@@ -298,7 +304,7 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
       Transaction,
       Address,
       TokenPayment,
-    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 
@@ -332,14 +338,10 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
         });
 
         try {
-          uiPending(true);
           // We still use the same ElvenJS function for that, 
           // only the transaction instance is different
           const transaction = await ElvenJS.signAndSendTransaction(tx);
-          uiPending(false);
-          updateTxHashContainer(transaction.hash)
         } catch (e) {
-          uiPending(false);
           throw new Error(e?.message);
         }
       });
@@ -377,12 +379,10 @@ We will query the minter smart contract to get the number of NFTs already minted
       Transaction,
       Address,
       TokenPayment,
-    } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 
-    // Here we have the wallet address for which we want to check the number of minted NFTs
-    const minterAddress = "erd1druav0mlt7wzutla33kw80ueaalmec7mz2hus5svdmzlfj286qpstg674t";
     // Here the same minter smart contract address as above. We will qery its function
     const nftMinterSmartContract = 'erd1qqqqqqqqqqqqqpgq5za2pty2tlfqhj20z9qmrrpjmyt6advcgtkscm7xep';
     
@@ -401,7 +401,7 @@ We will query the minter smart contract to get the number of NFTs already minted
             func: new ContractFunction('getMintedPerAddressTotal'),
             // As an argument we need to pass our address to check in TypedValue type
             // Check whole list in the SDK reference section
-            args: [new AddressValue(new Address(minterAddress))]
+            args: [new AddressValue(new Address(ElvenJS.storage.get('address')))]
           });
 
           uiPending(false);

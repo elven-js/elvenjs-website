@@ -21,7 +21,7 @@ The tool is a wrapper for [erdjs SDK](https://docs.elrond.com/sdk-and-tools/erdj
 
 ## What Elven.js can do?
 
-The fundamental functionality is connecting and logging the user using auth providers. For now, Elven.js supports two of four existing - The Maiar [browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm) (Maiar Defi) and [Maiar Mobile app](https://get.maiar.com/referral/rdmfba3md2). In the future, it will also support [Web Wallet](https://wallet.elrond.com/) and [Ledger Nano](https://www.ledger.com/) hardware wallet.
+The fundamental functionality is connecting and logging the user using auth providers. For now, Elven.js supports three of four existing - The Maiar [browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm) (Maiar Defi), [Maiar Mobile app](https://get.maiar.com/referral/rdmfba3md2), and Elrond Web Wallet. In the future, it will also support [Ledger Nano](https://www.ledger.com/) hardware wallet.
 
 So basically, the user can attach the Elven.js script and start authenticating users on the front end. There is also an option to pass a unique token and get a signature after authentication, which you can use for additional backend verification. You will read more about it in the [recipes](/docs/recipes.html) section.
 
@@ -47,10 +47,10 @@ Let's see how to import it from the CDN:
 <html>
   <body>
     <script type="module">
-      import { ElvenJS } from 'https://unpkg.com/elven.js@0.5.0/build/elven.js';
+      import { ElvenJS } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
 
       const initElven = async () => {
-        const isInitialized = await ElvenJS.init(
+        await ElvenJS.init(
           {
             apiUrl: 'https://devnet-api.elrond.com',
             chainType: 'devnet',
@@ -58,6 +58,8 @@ Let's see how to import it from the CDN:
             onLoginPending: () => {},
             onLoggedIn: () => {},
             onLogout: () => {},
+            onTxStarted: (tx) => {},
+            onTxFinalized: (tx) => {}
           }
         );
       }
@@ -68,7 +70,7 @@ Let's see how to import it from the CDN:
 </html>
 ```
 
-As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.5.0: `elven.js@0.5.0`).
+As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.6.0: `elven.js@0.6.0`).
 
 You can check the demo examples linked on the homepage.
 
@@ -86,16 +88,16 @@ import { ElvenJS } from 'elven.js';
 
 onMount(() => {
   const initElven = async () => {
-    const isInitialized = await ElvenJS.init({
+    await ElvenJS.init({
       apiUrl: 'https://devnet-api.elrond.com',
       chainType: 'devnet',
       apiTimeout: 10000,
       onLoginPending: () => {},
       onLoggedIn: () => {},
       onLogout: () => {},
+      onTxStarted: (tx) => {},
+      onTxFinalized: (tx) => {}
     });
-
-    setLoggedIn(Boolean(isInitialized));
   };
 
   initElven();
@@ -108,12 +110,14 @@ Because of the ability to adapt to any frontend framework Elven.js is an excelle
 
 ## Demo video
 
+Remember that the video will be outdated. Check the version and [changelog](https://github.com/juliancwirko/elven.js/blob/main/CHANGELOG.md).
+
 <div class="embeded-media-container">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/tcTukpkjcQw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ## Summary
 
-Okay, so you know what Elven.js is and how to start using it. You are now ready to look at the [SDK reference](/docs/sdk-reference.html) and ready to use [recipes](/docs/recipes.html).
+Okay, so you know what Elven.js is and how to start using it. You are now ready to look at the [SDK reference](/docs/sdk-reference.html) and [recipes](/docs/recipes.html).
  
 Also, there are a lot of links to the demo applications on the homepage, so you could also check the code of each one.
