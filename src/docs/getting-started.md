@@ -47,7 +47,7 @@ Let's see how to import it from the CDN:
 <html>
   <body>
     <script type="module">
-      import { ElvenJS } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
+      import { ElvenJS } from 'https://unpkg.com/elven.js@0.6.1/build/elven.js';
 
       const initElven = async () => {
         await ElvenJS.init(
@@ -55,6 +55,9 @@ Let's see how to import it from the CDN:
             apiUrl: 'https://devnet-api.elrond.com',
             chainType: 'devnet',
             apiTimeout: 10000,
+            // walletConnectBridgeAddresses is required only for custom addresses
+            // by default it will use https://bridge.walletconnect.org
+            walletConnectBridgeAddresses: ['https://bridge.walletconnect.org'],
             onLoginPending: () => {},
             onLoggedIn: () => {},
             onLogout: () => {},
@@ -70,7 +73,7 @@ Let's see how to import it from the CDN:
 </html>
 ```
 
-As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.6.0: `elven.js@0.6.0`).
+As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.6.1: `elven.js@0.6.1`).
 
 You can check the demo examples linked on the homepage.
 
@@ -92,6 +95,7 @@ onMount(() => {
       apiUrl: 'https://devnet-api.elrond.com',
       chainType: 'devnet',
       apiTimeout: 10000,
+      walletConnectBridgeAddresses: ['https://bridge.walletconnect.org'],
       onLoginPending: () => {},
       onLoggedIn: () => {},
       onLogout: () => {},

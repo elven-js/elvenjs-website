@@ -31,6 +31,7 @@ interface InitOptions {
   apiUrl: string;
   chainType: string;
   apiTimeout: number;
+  walletConnectBridgeAddresses: string[],
   onLoginPending?: () => void;
   onLoggedIn?: () => void;
   onLogout?: () => void;
@@ -49,6 +50,7 @@ The primary initialization function. It is responsible for synchronizing with th
 - `apiUrl`Elrond API URL - can be the public or private instance,
 - `chainType`Chain type identification - can be devnet, testnet, or mainnet,
 - `apiTimeout`: The API call timeout in milliseconds. Maximum 10000,
+- `walletConnectBridgeAddresses`: You can pass your custom WalletConnect bridge adresses, by default it will use https://bridge.walletconnect.org
 - `onLoginPending`: On login pending callback. It is used across all the auth providers,
 - `onLoggedIn`: On logged in callback. It is used across all the auth providers,
 - `onLogout`: On logout callback. It is used across all the auth providers,
@@ -63,7 +65,7 @@ The primary initialization function. It is responsible for synchronizing with th
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.1/build/elven.js';
 
     const initElven = async () => {
       await ElvenJS.init(
@@ -71,6 +73,9 @@ The primary initialization function. It is responsible for synchronizing with th
           apiUrl: 'https://devnet-api.elrond.com',
           chainType: 'devnet',
           apiTimeout: 10000,
+          // walletConnectBridgeAddresses is required only for custom addresses
+          // by default it will use https://bridge.walletconnect.org
+          walletConnectBridgeAddresses: ['https://bridge.walletconnect.org'],
           onLoginPending: () => { /* do something when login pending */ },
           onLoggedIn: () => { /* do something when logged in */ },
           onLogout: () => { /* do something when logged out */ },
@@ -126,7 +131,7 @@ One interface for logging in with all possible auth providers. It is the core fu
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.1/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -193,7 +198,7 @@ Logout function will remove the localStorage entries. It will work the same with
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.1/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -244,7 +249,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
       Address,
       TransactionPayload,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.1/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -327,7 +332,7 @@ Querying smart contracts is possible with this function. You must pass the smart
       AddressValue,
       ContractFunction,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.1/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -429,7 +434,7 @@ import {
   Address,
   ContractCallPayloadBuilder,
   ContractFunction
-} from 'https://unpkg.com/elven.js@0.6.0/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.6.1/build/elven.js';
 ```
 
 There will probably be more of them, but the ElvenJS library should be as small as possible. Maybe some of them will land in separate libraries like the planned query results parser library.
