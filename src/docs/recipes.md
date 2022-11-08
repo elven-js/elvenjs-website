@@ -4,12 +4,12 @@ title: "Recipes"
 publicationDate: "2022-09-19"
 tags:
   - intro
-excerpt: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
-ogTitle: "Elven.js - JavaScript Elrond SDK for browsers - Recipes!"
-ogDescription: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
+excerpt: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
+ogTitle: "Elven.js - JavaScript MultiversX SDK for browsers - Recipes!"
+ogDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
 ogUrl: "https://www.elvenjs.com/docs/recipes.html"
-twitterTitle: "Elven.js - JavaScript Elrond SDK for browsers - Recipes!"
-twitterDescription: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
+twitterTitle: "Elven.js - JavaScript MultiversX SDK for browsers - Recipes!"
+twitterDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
 twitterUrl: "https://www.elvenjs.com/docs/recipes.html"
 githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/recipes.md"
 ---
@@ -20,7 +20,7 @@ Remember that you can use the ElvenJS not only in static websites but let's focu
 
 ### How to login and logout with auth providers
 
-ElvenJS offers two of four auth providers for now. They are the [Maiar Mobile app](https://get.maiar.com/referral/rdmfba3md2), [Maiar browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm), and Elrond Web Wallet. There will also be support for the [Ledger Nano](https://www.ledger.com/) and Ledger Nano.
+ElvenJS offers two of four auth providers for now. They are the [Maiar Mobile app](https://get.maiar.com/referral/rdmfba3md2), [Maiar browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm), and MultiversX Web Wallet. There will also be support for the [Ledger Nano](https://www.ledger.com/) and Ledger Nano.
 
 To be able to login you need to initialize ElvenJs and then use the login function:
 
@@ -353,7 +353,7 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
 </html>
 ```
 
-You can check more about the NFT tokens on the Elrond blockchain in the docs [here](https://docs.elrond.com/tokens/nft-tokens/). Also, check the [Elven Tools](https://www.elven.tools) if you want to run your own PFP NFT collection on the Elrond blockchain. Free and open source smart contract, CLI tool, and dApp template.
+You can check more about the NFT tokens on the MultiversX blockchain in the docs [here](https://docs.elrond.com/tokens/nft-tokens/). Also, check the [Elven Tools](https://www.elven.tools) if you want to run your own PFP NFT collection on the MultiversX blockchain. Free and open source smart contract, CLI tool, and dApp template.
 
 ### How to query a smart contract
 

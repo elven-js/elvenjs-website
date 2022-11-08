@@ -5,9 +5,9 @@
     "orientation": "portrait",
     "scope": "/",
     "start_url": "/",
-    "name": "Elven.js - Open Source custom and community based TS/JS Elrond SDK",
+    "name": "Elven.js - Open Source custom and community based TS/JS MultiversX SDK",
     "short_name": "Elven.js",
-    "description": "Elven.js is a browser based custom and community based TS/JS Elrond SDK for interacting with the protocol and smart contracts.",
+    "description": "Elven.js is a browser based custom and community based TS/JS MultiversX SDK for interacting with the protocol and smart contracts.",
     "icons": [
       {
         "src": "/assets/images/icon-192x192.png",

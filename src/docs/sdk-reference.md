@@ -4,12 +4,12 @@ title: "SDK Reference"
 publicationDate: "2022-09-20"
 tags:
   - intro
-excerpt: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
-ogTitle: "Elven.js - JavaScript Elrond SDK for browsers - SDK Reference!"
-ogDescription: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
+excerpt: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
+ogTitle: "Elven.js - JavaScript MultiversX SDK for browsers - SDK Reference!"
+ogDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
 ogUrl: "https://www.elvenjs.com/docs/sdk-reference.html"
-twitterTitle: "Elven.js - JavaScript Elrond SDK for browsers - SDK Reference!"
-twitterDescription: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
+twitterTitle: "Elven.js - JavaScript MultiversX SDK for browsers - SDK Reference!"
+twitterDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
 twitterUrl: "https://www.elvenjs.com/docs/sdk-reference.html"
 githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/sdk-reference.md"
 ---
@@ -43,11 +43,11 @@ interface InitOptions {
 }
 ```
 
-The primary initialization function. It is responsible for synchronizing with the Elrond network and attaching login/logout callbacks.
+The primary initialization function. It is responsible for synchronizing with the MultiversX network and attaching login/logout callbacks.
 
 **Arguments**:
 
-- `apiUrl`Elrond API URL - can be the public or private instance,
+- `apiUrl`MultiversX API URL - can be the public or private instance,
 - `chainType`Chain type identification - can be devnet, testnet, or mainnet,
 - `apiTimeout`: The API call timeout in milliseconds. Maximum 10000,
 - `walletConnectBridgeAddresses`: You can pass your custom WalletConnect bridge adresses, by default it will use https://bridge.walletconnect.org

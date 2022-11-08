@@ -4,24 +4,24 @@ title: "Getting started"
 publicationDate: "2022-09-20"
 tags:
   - intro
-excerpt: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
-ogTitle: "Elven.js - JavaScript Elrond SDK for browsers - get started!"
-ogDescription: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
+excerpt: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
+ogTitle: "Elven.js - JavaScript MultiversX SDK for browsers - get started!"
+ogDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
 ogUrl: "https://www.elvenjs.com/docs/getting-started.html"
-twitterTitle: "Elven.js - JavaScript Elrond SDK for browsers - get started!"
-twitterDescription: "Elven.js - the JavaScript SDK for the Elrond blockchain. Compact and simplified wrapper for erdjs!"
+twitterTitle: "Elven.js - JavaScript MultiversX SDK for browsers - get started!"
+twitterDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
 twitterUrl: "https://www.elvenjs.com/docs/getting-started.html"
 githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/getting-started.md"
 ---
 
 
-Elven.js is a tool designed to work in browsers without any build steps and integrate Elrond blockchain and smart contracts built on it.
+Elven.js is a tool designed to work in browsers without any build steps and integrate MultiversX blockchain and smart contracts built on it.
 
 The tool is a wrapper for [erdjs SDK](https://docs.elrond.com/sdk-and-tools/erdjs/erdjs/) - a set of Typescript/Javascript libraries. But because the erdjs toolset is quite extensive and has a lot of Node module dependencies, there is a need for a simple browser-only library. The Elven.js aspire to be something like that - a helpful plug-and-play solution that will give you the most basic functionalities. 
 
 ## What Elven.js can do?
 
-The fundamental functionality is connecting and logging the user using auth providers. For now, Elven.js supports three of four existing - The Maiar [browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm) (Maiar Defi), [Maiar Mobile app](https://get.maiar.com/referral/rdmfba3md2), and Elrond Web Wallet. In the future, it will also support [Ledger Nano](https://www.ledger.com/) hardware wallet.
+The fundamental functionality is connecting and logging the user using auth providers. For now, Elven.js supports three of four existing - The Maiar [browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm) (Maiar Defi), [Maiar Mobile app](https://get.maiar.com/referral/rdmfba3md2), and MultiversX Web Wallet. In the future, it will also support [Ledger Nano](https://www.ledger.com/) hardware wallet.
 
 So basically, the user can attach the Elven.js script and start authenticating users on the front end. There is also an option to pass a unique token and get a signature after authentication, which you can use for additional backend verification. You will read more about it in the [recipes](/docs/recipes.html) section.
 
@@ -35,7 +35,7 @@ The script is a wrapper for erdjs SDK, an official JavaScript SDK for usage in t
 
 Elven.js imports only crucial parts of the erdjs libraries. It will include the most used parts of the erdjs, which are essential for the browsers. All other functionality will be split into separate scripts, and it will be shipped as optional scripts in the future.
 
-Internally Elven.js uses Typescript, but finally, it is a standard minified JavaScript file. It can be used in static websites and frameworks like React, SolidJS, or Vue. It is worth mentioning that there are official tools for React already, so it will probably be a better choice to check them. You could also check the [Elrond NextJs dApp template](https://github.com/ElrondDevGuild/nextjs-dapp-template).
+Internally Elven.js uses Typescript, but finally, it is a standard minified JavaScript file. It can be used in static websites and frameworks like React, SolidJS, or Vue. It is worth mentioning that there are official tools for React already, so it will probably be a better choice to check them. You could also check the [MultiversX NextJs dApp template](https://github.com/xdevguild/nextjs-dapp-template).
 
 ## How to start using it?
 
@@ -77,7 +77,7 @@ As you can see here, we have a simplified HTML document where we import the Elve
 
 You can check the demo examples linked on the homepage.
 
-If you work with a frontend framework for which no tools support the Elrond blockchain, you can also use the Elven.js tools, installing them as a dependency and then importing from it.
+If you work with a frontend framework for which no tools support the MultiversX blockchain, you can also use the Elven.js tools, installing them as a dependency and then importing from it.
 
 ```bash
 npm install elven.js --save
