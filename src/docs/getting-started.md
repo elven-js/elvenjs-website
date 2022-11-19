@@ -62,7 +62,9 @@ Let's see how to import it from the CDN:
             onLoggedIn: () => {},
             onLogout: () => {},
             onTxStarted: (tx) => {},
-            onTxFinalized: (tx) => {}
+            onTxSent: (tx) => {},
+            onTxFinalized: (tx) => {},
+            onTxError: (tx, error) => {}
           }
         );
       }
@@ -100,7 +102,9 @@ onMount(() => {
       onLoggedIn: () => {},
       onLogout: () => {},
       onTxStarted: (tx) => {},
-      onTxFinalized: (tx) => {}
+      onTxSent: (tx) => {},
+      onTxFinalized: (tx) => {},
+      onTxError: (tx, error) => {}
     });
   };
 

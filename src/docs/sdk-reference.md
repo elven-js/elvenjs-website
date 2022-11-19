@@ -36,10 +36,12 @@ interface InitOptions {
   onLoggedIn?: () => void;
   onLogout?: () => void;
   onTxStarted: (tx: Transaction) => { uiPending(true); },
+  onTxSent: (tx: Transaction) => {}
   onTxFinalized: (tx: Transaction) => {
     tx?.hash && updateTxHashContainer(tx.hash);
     uiPending(false);
-  }
+  },
+  onTxError: (tx: Transaction, error: string) => { uiPending(false); }
 }
 ```
 
@@ -55,7 +57,9 @@ The primary initialization function. It is responsible for synchronizing with th
 - `onLoggedIn`: On logged in callback. It is used across all the auth providers,
 - `onLogout`: On logout callback. It is used across all the auth providers,
 - `onTxStarted`: On transactions started callback. It is used across all the auth providers. You can use the transaction payload's current state,
+- `onTxSent`: On transactions sent callback. It is used across all the auth providers. The transaction sent, but not finalized on chain. You can get its hash at this point.
 - `onTxFinalized`: On transactions finalized callback. It is used across all the auth providers. You can use the transaction payload's current state.
+- `onTxError`: On transactions errors callback. You can catch errors and manage UI states.
 
 **Usage example**:
 
@@ -80,7 +84,9 @@ The primary initialization function. It is responsible for synchronizing with th
           onLoggedIn: () => { /* do something when logged in */ },
           onLogout: () => { /* do something when logged out */ },
           onTxStarted: (tx) => { /* do something when transaction started */ },
-          onTxFinalized: (tx) => { /* do something when transaction was finalized */ }
+          onTxSent: (tx) => { /* do something when transaction was sent */ },
+          onTxFinalized: (tx) => { /* do something when transaction was finalized */ },
+          onTxError: (tx, error) => { /* do something when transaction error occured */ }
         }
       );
     }
