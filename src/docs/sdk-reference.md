@@ -69,7 +69,7 @@ The primary initialization function. It is responsible for synchronizing with th
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.6.1/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
 
     const initElven = async () => {
       await ElvenJS.init(
@@ -137,7 +137,7 @@ One interface for logging in with all possible auth providers. It is the core fu
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.6.1/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -204,7 +204,7 @@ Logout function will remove the localStorage entries. It will work the same with
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.6.1/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -255,7 +255,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
       Address,
       TransactionPayload,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.6.1/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -338,7 +338,7 @@ Querying smart contracts is possible with this function. You must pass the smart
       AddressValue,
       ContractFunction,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.6.1/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -381,6 +381,7 @@ Storage is a thin wrapper over the localStorage. All data required for synchroni
 Remember that it shouldn't be used as a custom localStorage operations replacement. It has preconfigured localStorage key and should be used only for ElvenJS related operations. Mostly reading the actual state of the application. Below you will find what data you can get:
 
 - `signature` - auth signature when you provide the auth token
+- `loginToken` - the token you pass in the login function to get the signature back (optional)
 - `address` - actually logged in erd address
 - `loginMethod` - actually chosen login method, for example, `maiar-browser-extension`
 - `expires` - when your current session will expire
@@ -440,7 +441,7 @@ import {
   Address,
   ContractCallPayloadBuilder,
   ContractFunction
-} from 'https://unpkg.com/elven.js@0.6.1/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
 ```
 
 There will probably be more of them, but the ElvenJS library should be as small as possible. Maybe some of them will land in separate libraries like the planned query results parser library.
