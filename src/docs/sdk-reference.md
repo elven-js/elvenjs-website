@@ -4,17 +4,17 @@ title: "SDK Reference"
 publicationDate: "2022-09-20"
 tags:
   - intro
-excerpt: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
+excerpt: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for sdk-js!"
 ogTitle: "Elven.js - JavaScript MultiversX SDK for browsers - SDK Reference!"
-ogDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
+ogDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for sdk-js!"
 ogUrl: "https://www.elvenjs.com/docs/sdk-reference.html"
 twitterTitle: "Elven.js - JavaScript MultiversX SDK for browsers - SDK Reference!"
-twitterDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
+twitterDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for sdk-js!"
 twitterUrl: "https://www.elvenjs.com/docs/sdk-reference.html"
 githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/sdk-reference.md"
 ---
 
-The Elven.js tool will be as simple as possible. It exports a couple of helper functions. It also exports several data structures (types) from [erdjs](https://docs.elrond.com/sdk-and-tools/erdjs/erdjs/) libraries. Here you will find a description of all the parts, and then you can check the [recipes](/docs/recipes.html) section for real-world examples.
+The Elven.js tool will be as simple as possible. It exports a couple of helper functions. It also exports several data structures (types) from [sdk-js](https://docs.multiversx.com/sdk-and-tools/sdk-js/) libraries. Here you will find a description of all the parts, and then you can check the [recipes](/docs/recipes.html) section for real-world examples.
 
 Worth mentioning. Remember to check the source code, written in Typescript. You will find all the source files here: [elven.js/src](https://github.com/juliancwirko/elven.js/tree/main/src).
 
@@ -69,12 +69,12 @@ The primary initialization function. It is responsible for synchronizing with th
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.7.0/build/elven.js';
 
     const initElven = async () => {
       await ElvenJS.init(
         {
-          apiUrl: 'https://devnet-api.elrond.com',
+          apiUrl: 'https://devnet-api.multiversx.com',
           chainType: 'devnet',
           apiTimeout: 10000,
           // walletConnectBridgeAddresses is required only for custom addresses
@@ -106,9 +106,9 @@ await ElvenJS.login(loginMethod: LoginMethodsEnum, options?: LoginOptions)
 ```typescript
 enum LoginMethodsEnum {
   ledger = 'ledger', // not implemented yet
-  maiarMobile = 'maiar-mobile',
+  mobile = 'mobile',
   webWallet = 'web-wallet',
-  maiarBrowserExtension = 'maiar-browser-extension',
+  browserExtension = 'browser-extension',
 }
 
 interface LoginOptions {
@@ -122,8 +122,8 @@ One interface for logging in with all possible auth providers. It is the core fu
 
 **Arguments**:
 
-- `loginMethod`: one of four login methods (ledger, maiar-mobile, web-wallet, maiar-browser-extension) (for now, two of them are implemented)
-- `options` as options, you can pass the `token`, which is a unique string that can be used for signature generation and user verification. You can also define `qrCodeContainer`, the DOM element id or DOM element in which the maiar-mobile QR code will be displayed, and `callbackRoute` used for web-wallet.
+- `loginMethod`: one of four login methods (ledger, mobile, web-wallet, browser-extension) (for now, two of them are implemented)
+- `options` as options, you can pass the `token`, which is a unique string that can be used for signature generation and user verification. You can also define `qrCodeContainer`, the DOM element id or DOM element in which the mobile QR code will be displayed, and `callbackRoute` used for web-wallet.
 
 **Usage example**:
 
@@ -131,13 +131,13 @@ One interface for logging in with all possible auth providers. It is the core fu
 <html>
 <body>
   <button id="button-login-extension">Login with extension</button>
-  <button id="button-login-mobile">Login with Maiar mobile</button>
+  <button id="button-login-mobile">Login with xPortal</button>
   <div id="qr-code-container"></div>
 
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.7.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -145,7 +145,7 @@ One interface for logging in with all possible auth providers. It is the core fu
       .getElementById('button-login-extension')
       .addEventListener('click', async () => {
         try {
-          await ElvenJS.login('maiar-browser-extension');
+          await ElvenJS.login('browser-extension');
         } catch (e) {
           console.log(
             'Login: Something went wrong, try again!', e?.message
@@ -157,7 +157,7 @@ One interface for logging in with all possible auth providers. It is the core fu
       .getElementById('button-login-mobile')
       .addEventListener('click', async () => {
         try {
-          await ElvenJS.login('maiar-mobile', {
+          await ElvenJS.login('mobile', {
             // You can also use the DOM element here: 
             // qrCodeContainer: document.querySelector('#qr-code-container')
             qrCodeContainer: 'qr-code-container',
@@ -204,7 +204,7 @@ Logout function will remove the localStorage entries. It will work the same with
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.7.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -233,13 +233,13 @@ await ElvenJS.signAndSendTransaction(transaction: Transaction)
 
 **Typings**:
 
-`Transaction` is the erdjs exported [Transaction](https://github.com/ElrondNetwork/elrond-sdk-erdjs/blob/main/src/transaction.ts) class.
+`Transaction` is the sdk-js exported [Transaction](https://github.com/multiversx/mx-sdk-js-core/blob/main/src/transaction.ts) class.
 
 The sign and send transaction handle one transaction at a time. This is basic functionality that is enough in most cases. The previously prepared transaction instance will be signed and sent with that function. You will use your chosen provider (mobile app, browser extension, etc.) for signing.
 
 **Arguments**:
 
-- `transaction`: the erdjs transaction class, the transaction instance is the same as the erdjs one.
+- `transaction`: the sdk-js transaction class, the transaction instance is the same as the sdk-js one.
 
 **Usage example**: 
 
@@ -255,7 +255,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
       Address,
       TransactionPayload,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.7.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -289,7 +289,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
 </html>
 ```
 
-You can also see the transaction instance here. There is a couple of classes exported from erdjs. You can think of them as helper tools for data preparation. More about them later.
+You can also see the transaction instance here. There is a couple of classes exported from sdk-js. You can think of them as helper tools for data preparation. More about them later.
 
 ### Query smart contracts
 
@@ -313,13 +313,13 @@ interface SmartContractQueryArgs extends QueryArguments {
 }
 ```
 
-`QueryArguments` is the erdjs exported [QueryArguments](https://github.com/ElrondNetwork/elrond-sdk-erdjs/blob/main/src/smartcontracts/interface.ts) type. 
+`QueryArguments` is the sdk-js exported [QueryArguments](https://github.com/multiversx/mx-sdk-js-core/blob/main/src/smartcontracts/interface.ts) type. 
 Querying smart contracts is possible with this function. You must pass the smart contract address, function name (smart contract endpoint), and arguments (if it takes any). The value and caller are optional.
 
 **Arguments**:
 
-- `address` - `IAddress` interface from erdjs, you will get it by `new Address(<string_addres>)`
-- `func` - `IContractFunction` interface from erdjs, you will get it by `new ContractFunction('<function_name>')`
+- `address` - `IAddress` interface from sdk-js, you will get it by `new Address(<string_addres>)`
+- `func` - `IContractFunction` interface from sdk-js, you will get it by `new ContractFunction('<function_name>')`
 - `args` - `TypedValue` array, you will get it by using one of many helpers like `U32Value`, `AddressValue`, `BytesValue`, etc. You'll learn more about it later
 - `value` - the value to transfer. It is optional or can be set to 0
 - `caller` - also `Iaddress` interface, the same as an address, also optional
@@ -338,7 +338,7 @@ Querying smart contracts is possible with this function. You must pass the smart
       AddressValue,
       ContractFunction,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.7.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -383,7 +383,7 @@ Remember that it shouldn't be used as a custom localStorage operations replaceme
 - `signature` - auth signature when you provide the auth token
 - `loginToken` - the token you pass in the login function to get the signature back (optional)
 - `address` - actually logged in erd address
-- `loginMethod` - actually chosen login method, for example, `maiar-browser-extension`
+- `loginMethod` - actually chosen login method, for example, `browser-extension`
 - `expires` - when your current session will expire
 `balance` - your actual Egld balance
 - `nonce` - your actual nonce - this one is quite important because you will need it when preparing transactions objects
@@ -394,7 +394,7 @@ Example of the localStorage data:
 {
   "signature":"42946a91f332eb3e413bc7ac18b8246bca1cb230ef2813ed714cd0417c95a8eb8104ce4e7d7c9ce1fb03853e10e7817416f8a8e789111df89909cd973f41ee0b",
   "address":"erd1druav0mlt7wzutla33kw80ueaalmec7mz2hus5svdmzlfj286qpstg674t",
-  "loginMethod":"maiar-browser-extension",
+  "loginMethod":"browser-extension",
   "expires":1663881876868,
   "nonce":166,
   "balance":"6089909418940000000"
@@ -413,9 +413,9 @@ Mostly helpful in single-page applications where you would like to do some clean
 
 **No arguments**.
 
-### Exported classes and types from erdjs
+### Exported classes and types from sdk-js
 
-Below is the list of exported helpers, classes, and types from erdjs. You can read more about them in the [erdjs cookbook](https://docs.elrond.com/sdk-and-tools/erdjs/erdjs-cookbook/), also please check the [recipes](/docs/recipes.html) section, where you will find some of the use cases related to these:
+Below is the list of exported helpers, classes, and types from sdk-js. You can read more about them in the [sdk-js cookbook](https://docs.multiversx.com/sdk-and-tools/sdk-js/sdk-js-cookbook), also please check the [recipes](/docs/recipes.html) section, where you will find some of the use cases related to these:
 
 - `TokenPayment`
 - `Address`
@@ -441,7 +441,7 @@ import {
   Address,
   ContractCallPayloadBuilder,
   ContractFunction
-} from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.7.0/build/elven.js';
 ```
 
 There will probably be more of them, but the ElvenJS library should be as small as possible. Maybe some of them will land in separate libraries like the planned query results parser library.
@@ -450,4 +450,4 @@ There will probably be more of them, but the ElvenJS library should be as small 
 
 You learned about all functions from ElvenJS. The library will undoubtedly get some more functionality in the future, but for now, this is enough to let you build dApps and widgets on your existing websites.
 
-Please check the [erdjs SDK](https://docs.elrond.com/sdk-and-tools/erdjs/erdjs/) tools for more info on some of the types and classes described here, and for sure, reading the [recipes](/docs/recipes.html) section will be beneficial.
+Please check the [JS SDK](https://docs.multiversx.com/sdk-and-tools/sdk-js/) tools for more info on some of the types and classes described here, and for sure, reading the [recipes](/docs/recipes.html) section will be beneficial.

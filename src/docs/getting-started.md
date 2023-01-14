@@ -4,12 +4,12 @@ title: "Getting started"
 publicationDate: "2022-09-20"
 tags:
   - intro
-excerpt: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
+excerpt: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for sdk-js!"
 ogTitle: "Elven.js - JavaScript MultiversX SDK for browsers - get started!"
-ogDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
+ogDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for sdk-js!"
 ogUrl: "https://www.elvenjs.com/docs/getting-started.html"
 twitterTitle: "Elven.js - JavaScript MultiversX SDK for browsers - get started!"
-twitterDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
+twitterDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for sdk-js!"
 twitterUrl: "https://www.elvenjs.com/docs/getting-started.html"
 githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/getting-started.md"
 ---
@@ -17,11 +17,11 @@ githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/g
 
 Elven.js is a tool designed to work in browsers without any build steps and integrate MultiversX blockchain and smart contracts built on it.
 
-The tool is a wrapper for [erdjs SDK](https://docs.elrond.com/sdk-and-tools/erdjs/erdjs/) - a set of Typescript/Javascript libraries. But because the erdjs toolset is quite extensive and has a lot of Node module dependencies, there is a need for a simple browser-only library. The Elven.js aspire to be something like that - a helpful plug-and-play solution that will give you the most basic functionalities. 
+The tool is a wrapper for [sdk-js](https://docs.multiversx.com/sdk-and-tools/sdk-js/) - a set of Typescript/Javascript libraries. But because the sdk-js toolset is quite extensive and has a lot of Node module dependencies, there is a need for a simple browser-only library. The Elven.js aspire to be something like that - a helpful plug-and-play solution that will give you the most basic functionalities. 
 
 ## What Elven.js can do?
 
-The fundamental functionality is connecting and logging the user using auth providers. For now, Elven.js supports three of four existing - The Maiar [browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm) (Maiar Defi), [Maiar Mobile app](https://get.maiar.com/referral/rdmfba3md2), and MultiversX Web Wallet. In the future, it will also support [Ledger Nano](https://www.ledger.com/) hardware wallet.
+The fundamental functionality is connecting and logging the user using auth providers. For now, Elven.js supports three of four existing - The MultiversX [browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm) (MultiversX Defi), [xPortal Mobile app](https://get.maiar.com/referral/rdmfba3md2), and MultiversX Web Wallet. In the future, it will also support [Ledger Nano](https://www.ledger.com/) hardware wallet.
 
 So basically, the user can attach the Elven.js script and start authenticating users on the front end. There is also an option to pass a unique token and get a signature after authentication, which you can use for additional backend verification. You will read more about it in the [recipes](/docs/recipes.html) section.
 
@@ -31,9 +31,9 @@ Besides authentication, Elven.js will also help with all the interactions, like 
 
 In the end, the Elven.js library is a simple browser-based JS script. You can copy it from the repository and use it as a local JavaScript file or import it directly from the CDN.
 
-The script is a wrapper for erdjs SDK, an official JavaScript SDK for usage in the Nodejs ecosystem. Erdjs can also be used in the browser but requires additional build steps and configuration, and the file itself will be huge. This is why Elven.js exists. 
+The script is a wrapper for sdk-js, an official JavaScript SDK for usage in the Nodejs ecosystem. JS SDK can also be used in the browser but requires additional build steps and configuration, and the file itself will be huge. This is why Elven.js exists. 
 
-Elven.js imports only crucial parts of the erdjs libraries. It will include the most used parts of the erdjs, which are essential for the browsers. All other functionality will be split into separate scripts, and it will be shipped as optional scripts in the future.
+Elven.js imports only crucial parts of the sdk-js libraries. It will include the most used parts of the sdk-js, which are essential for the browsers. All other functionality will be split into separate scripts, and it will be shipped as optional scripts in the future.
 
 Internally Elven.js uses Typescript, but finally, it is a standard minified JavaScript file. It can be used in static websites and frameworks like React, SolidJS, or Vue. It is worth mentioning that there are official tools for React already, so it will probably be a better choice to check them. You could also check the [MultiversX NextJs dApp template](https://github.com/xdevguild/nextjs-dapp-template).
 
@@ -47,12 +47,12 @@ Let's see how to import it from the CDN:
 <html>
   <body>
     <script type="module">
-      import { ElvenJS } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
+      import { ElvenJS } from 'https://unpkg.com/elven.js@0.7.0/build/elven.js';
 
       const initElven = async () => {
         await ElvenJS.init(
           {
-            apiUrl: 'https://devnet-api.elrond.com',
+            apiUrl: 'https://devnet-api.multiversx.com',
             chainType: 'devnet',
             apiTimeout: 10000,
             // walletConnectBridgeAddresses is required only for custom addresses
@@ -75,7 +75,7 @@ Let's see how to import it from the CDN:
 </html>
 ```
 
-As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.6.2: `elven.js@0.6.2`).
+As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.7.0: `elven.js@0.7.0`).
 
 You can check the demo examples linked on the homepage.
 
@@ -94,7 +94,7 @@ import { ElvenJS } from 'elven.js';
 onMount(() => {
   const initElven = async () => {
     await ElvenJS.init({
-      apiUrl: 'https://devnet-api.elrond.com',
+      apiUrl: 'https://devnet-api.multiversx.com',
       chainType: 'devnet',
       apiTimeout: 10000,
       walletConnectBridgeAddresses: ['https://bridge.walletconnect.org'],

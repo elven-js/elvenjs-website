@@ -4,12 +4,12 @@ title: "Recipes"
 publicationDate: "2022-09-19"
 tags:
   - intro
-excerpt: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
+excerpt: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for sdk-js!"
 ogTitle: "Elven.js - JavaScript MultiversX SDK for browsers - Recipes!"
-ogDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
+ogDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for sdk-js!"
 ogUrl: "https://www.elvenjs.com/docs/recipes.html"
 twitterTitle: "Elven.js - JavaScript MultiversX SDK for browsers - Recipes!"
-twitterDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for erdjs!"
+twitterDescription: "Elven.js - the JavaScript SDK for the MultiversX blockchain. Compact and simplified wrapper for sdk-js!"
 twitterUrl: "https://www.elvenjs.com/docs/recipes.html"
 githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/recipes.md"
 ---
@@ -20,7 +20,7 @@ Remember that you can use the ElvenJS not only in static websites but let's focu
 
 ### How to login and logout with auth providers
 
-ElvenJS offers two of four auth providers for now. They are the [Maiar Mobile app](https://get.maiar.com/referral/rdmfba3md2), [Maiar browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm), and MultiversX Web Wallet. There will also be support for the [Ledger Nano](https://www.ledger.com/) and Ledger Nano.
+ElvenJS offers two of four auth providers for now. They are the [xPortal Mobile app](https://get.maiar.com/referral/rdmfba3md2), [MultiversX browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm), and MultiversX Web Wallet. There will also be support for the [Ledger Nano](https://www.ledger.com/) and Ledger Nano.
 
 To be able to login you need to initialize ElvenJs and then use the login function:
 
@@ -29,7 +29,7 @@ To be able to login you need to initialize ElvenJs and then use the login functi
 <body>
   <button class="button" id="button-login-extension" style="display: none;">Login with Extension</button>
   <button class="button" id="button-login-mobile" style="display: none;">Login
-    with Maiar mobile</button>
+    with xPortal</button>
   <button class="button" id="button-logout" style="display: none;">Logout</button>
 
   <div id="qr-code-container" class="qr-code-container"></div>
@@ -44,14 +44,14 @@ To be able to login you need to initialize ElvenJs and then use the login functi
     // import ElvenJS parts from CDN 
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.7.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
       await ElvenJS.init(
         {
           // Define the API endpoint (can be custom one)
-          apiUrl: 'https://devnet-api.elrond.com',
+          apiUrl: 'https://devnet-api.multiversx.com',
           // Define the chain type (devnet, mainnet, testnet)
           chainType: 'devnet',
           // Define the API timeout, max 10 sec on public endpoint
@@ -82,7 +82,7 @@ To be able to login you need to initialize ElvenJs and then use the login functi
       .getElementById('button-login-extension')
       .addEventListener('click', async () => {
         try {
-          await ElvenJS.login('maiar-browser-extension');
+          await ElvenJS.login('browser-extension');
         } catch (e) {
           console.log('Login: Something went wrong, try again!', e?.message);
         }
@@ -94,7 +94,7 @@ To be able to login you need to initialize ElvenJs and then use the login functi
       .getElementById('button-login-mobile')
       .addEventListener('click', async () => {
         try {
-          await ElvenJS.login('maiar-mobile', {
+          await ElvenJS.login('mobile', {
             // You can also use the DOM element here: 
             // qrCodeContainer: document.querySelector('#qr-code-container')
             qrCodeContainer: 'qr-code-container',
@@ -160,7 +160,7 @@ For this example, let's omit the code responsible for initialization and auth. Y
       Address,
       TransactionPayload,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.7.0/build/elven.js';
 
     // (...) Init and login logic here, check how above
 
@@ -179,7 +179,7 @@ For this example, let's omit the code responsible for initialization and auth. Y
           nonce: ElvenJS.storage.get('nonce'),
           // Get the receiver of the EGLD
           receiver: new Address(egldTransferAddress),
-          // Calculate gas limit (check Elrond docs)
+          // Calculate gas limit (check MultiversX docs)
           gasLimit: 50000 + 1500 * demoMessage.length,
           // Define the chain id (D for the devnet, T for the testnet, 1 for the mainnet)
           chainID: 'D',
@@ -203,7 +203,7 @@ For this example, let's omit the code responsible for initialization and auth. Y
 </html>
 ```
 
-As you can see, more logic is involved in building the transaction here. It could look not very easy, but generally, it is just an object created with a couple of helpers exported from erdjs SDK. So it is very similar to how you would do this with erdjs.
+As you can see, more logic is involved in building the transaction here. It could look not very easy, but generally, it is just an object created with a couple of helpers exported from sdk-js SDK. So it is very similar to how you would do this with sdk-js.
 
 Transactions are handled in very similar ways. They only need different payload structures and builders. You will find the whole list of them in the [SDK reference](/docs/sdk-reference.html).
 
@@ -213,7 +213,7 @@ Oh, and by the way, the transaction here is predefined, but you could have your 
 
 The same here. Let's not focus on initialization and login. You can check it above in the first point.
 
-Below you will find an example of the ESDT transfer. What is ESDT? These are tokens on the Elrond network that you can create for yourself. Please read more about them [here](https://docs.elrond.com/tokens/esdt-tokens/).
+Below you will find an example of the ESDT transfer. What is ESDT? These are tokens on the MultiversX network that you can create for yourself. Please read more about them [here](https://docs.multiversx.com/tokens/esdt-tokens/).
 
 ```html
 <html>
@@ -236,7 +236,7 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
       Transaction,
       Address,
       TokenPayment,
-    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.7.0/build/elven.js';
 
     // (...) Init and login logic here, check how above 
 
@@ -250,7 +250,7 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
         updateTxHashContainer(false);
 
         // We need to build the payment here, we need to provide some data
-        // Token id, amount and decimal places (check erdjs cookbook for more info)
+        // Token id, amount and decimal places (check sdk-js cookbook for more info)
         const payment = TokenPayment.fungibleFromAmount(
           'BUILDO-890d14',
           '1',
@@ -309,7 +309,7 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
       Transaction,
       Address,
       TokenPayment,
-    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.7.0/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 
@@ -355,7 +355,7 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
 </html>
 ```
 
-You can check more about the NFT tokens on the MultiversX blockchain in the docs [here](https://docs.elrond.com/tokens/nft-tokens/). Also, check the [Elven Tools](https://www.elven.tools) if you want to run your own PFP NFT collection on the MultiversX blockchain. Free and open source smart contract, CLI tool, and dApp template.
+You can check more about the NFT tokens on the MultiversX blockchain in the docs [here](https://docs.multiversx.com/tokens/nft-tokens/). Also, check the [Elven Tools](https://www.elven.tools) if you want to run your own PFP NFT collection on the MultiversX blockchain. Free and open source smart contract, CLI tool, and dApp template.
 
 ### How to query a smart contract
 
@@ -384,7 +384,7 @@ We will query the minter smart contract to get the number of NFTs already minted
       Transaction,
       Address,
       TokenPayment,
-    } from 'https://unpkg.com/elven.js@0.6.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.7.0/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 
@@ -435,7 +435,7 @@ First of all, using the login token in only the frontend-based app isn't require
 
 The login token is your unique hash or whatever you like that is passed when logging in and signed by your wallet using login auth providers. The signature is returned to your browser and saved in localStorage. Such a signature and token can then be sent to your custom backend, and with your public address, the backend can verify it. Then, for example, you could have a logic that will prepare the JWT token and send it back to the frontend app.
 
-The tools and logic required for verification on the backend are out of the scope of this library, but you can use erdjs for that on your Node backend. Here is an example and docs on how to do that:  [Elven Tools Dapp backend integration](https://www.elven.tools/docs/dapp-backend-integration.html#dapp-backend-integration).
+The tools and logic required for verification on the backend are out of the scope of this library, but you can use sdk-js for that on your Node backend. Here is an example and docs on how to do that:  [Elven Tools Dapp backend integration](https://www.elven.tools/docs/dapp-backend-integration.html#dapp-backend-integration).
 
 On the frontend part with Elven.js, you would only need to pass your token when logging in. This will look like that:
 
@@ -443,7 +443,7 @@ On the frontend part with Elven.js, you would only need to pass your token when 
 (...)
 
 // The token is just an example, it can be anything
-ElvenJS.login('maiar-browser-extension', { token: "d052ee8c9acb023d521ef3" })
+ElvenJS.login('browser-extension', { token: "d052ee8c9acb023d521ef3" })
 
 (...)
 ```
@@ -454,7 +454,7 @@ Then you can get the signature:
 ElvenJS.storage.get('signature')
 ```
 
-Then you will need to send three things to your backend, the signature, the token, and your public wallet address. On the backend, you will need to use erdjs and a couple of operations described in the link above to verify the signature.
+Then you will need to send three things to your backend, the signature, the token, and your public wallet address. On the backend, you will need to use sdk-js and a couple of operations described in the link above to verify the signature.
 
 ### Working demos
 
