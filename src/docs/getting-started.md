@@ -47,7 +47,7 @@ Let's see how to import it from the CDN:
 <html>
   <body>
     <script type="module">
-      import { ElvenJS } from 'https://unpkg.com/elven.js@0.7.0/build/elven.js';
+      import { ElvenJS } from 'https://unpkg.com/elven.js@0.8.0/build/elven.js';
 
       const initElven = async () => {
         await ElvenJS.init(
@@ -55,16 +55,18 @@ Let's see how to import it from the CDN:
             apiUrl: 'https://devnet-api.multiversx.com',
             chainType: 'devnet',
             apiTimeout: 10000,
-            // walletConnectBridgeAddresses is required only for custom addresses
-            // by default it will use https://bridge.walletconnect.org
-            walletConnectBridgeAddresses: ['https://bridge.walletconnect.org'],
+            // Remember to change it. Get yours here: https://cloud.walletconnect.com/sign-in
+            walletConnectV2ProjectId: '<your_wc_project_id_here>',
+            WalletConnectV2RelayAddresses: ['wss://relay.walletconnect.com'],
             onLoginPending: () => {},
             onLoggedIn: () => {},
             onLogout: () => {},
-            onTxStarted: (tx) => {},
-            onTxSent: (tx) => {},
-            onTxFinalized: (tx) => {},
-            onTxError: (tx, error) => {}
+            onTxStarted: () => {},
+            onTxSent: () => {},
+            onTxFinalized: () => {},
+            onTxError: () => {},
+            onQrPending: () => {},
+            onQrLoaded: () => {},
           }
         );
       }
@@ -75,7 +77,7 @@ Let's see how to import it from the CDN:
 </html>
 ```
 
-As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.7.0: `elven.js@0.7.0`).
+As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.8.0: `elven.js@0.8.0`).
 
 You can check the demo examples linked on the homepage.
 
@@ -97,14 +99,18 @@ onMount(() => {
       apiUrl: 'https://devnet-api.multiversx.com',
       chainType: 'devnet',
       apiTimeout: 10000,
-      walletConnectBridgeAddresses: ['https://bridge.walletconnect.org'],
+      // Remember to change it. Get yours here: https://cloud.walletconnect.com/sign-in
+      walletConnectV2ProjectId: '<your_wc_project_id_here>',
+      WalletConnectV2RelayAddresses: ['wss://relay.walletconnect.com'],
       onLoginPending: () => {},
       onLoggedIn: () => {},
       onLogout: () => {},
-      onTxStarted: (tx) => {},
-      onTxSent: (tx) => {},
-      onTxFinalized: (tx) => {},
-      onTxError: (tx, error) => {}
+      onTxStarted: () => {},
+      onTxSent: () => {},
+      onTxFinalized: () => {},
+      onTxError: () => {},
+      onQrPending: () => {},
+      onQrLoaded: () => {},
     });
   };
 
