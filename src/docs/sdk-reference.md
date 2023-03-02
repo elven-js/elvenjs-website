@@ -69,7 +69,7 @@ The primary initialization function. It is responsible for synchronizing with th
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.8.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.8.1/build/elven.js';
 
     const initElven = async () => {
       await ElvenJS.init(
@@ -137,7 +137,7 @@ One interface for logging in with all possible auth providers. It is the core fu
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.8.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.8.1/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -204,7 +204,7 @@ Logout function will remove the localStorage entries. It will work the same with
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.8.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.8.1/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -255,7 +255,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
       Address,
       TransactionPayload,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.8.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.8.1/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -338,7 +338,7 @@ Querying smart contracts is possible with this function. You must pass the smart
       AddressValue,
       ContractFunction,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.8.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.8.1/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -441,7 +441,7 @@ import {
   Address,
   ContractCallPayloadBuilder,
   ContractFunction
-} from 'https://unpkg.com/elven.js@0.8.0/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.8.1/build/elven.js';
 ```
 
 There will probably be more of them, but the ElvenJS library should be as small as possible. Maybe some of them will land in separate libraries like the planned query results parser library.
