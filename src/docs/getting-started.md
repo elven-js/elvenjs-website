@@ -47,7 +47,7 @@ Let's see how to import it from the CDN:
 <html>
   <body>
     <script type="module">
-      import { ElvenJS } from 'https://unpkg.com/elven.js@0.8.1/build/elven.js';
+      import { ElvenJS } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
 
       const initElven = async () => {
         await ElvenJS.init(
@@ -57,7 +57,7 @@ Let's see how to import it from the CDN:
             apiTimeout: 10000,
             // Remember to change it. Get yours here: https://cloud.walletconnect.com/sign-in
             walletConnectV2ProjectId: '<your_wc_project_id_here>',
-            WalletConnectV2RelayAddresses: ['wss://relay.walletconnect.com'],
+            walletConnectV2RelayAddresses: ['wss://relay.walletconnect.com'],
             onLoginPending: () => {},
             onLoggedIn: () => {},
             onLogout: () => {},
@@ -77,7 +77,7 @@ Let's see how to import it from the CDN:
 </html>
 ```
 
-As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.8.1: `elven.js@0.8.1`).
+As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.8.2: `elven.js@0.8.2`).
 
 You can check the demo examples linked on the homepage.
 
@@ -101,7 +101,7 @@ onMount(() => {
       apiTimeout: 10000,
       // Remember to change it. Get yours here: https://cloud.walletconnect.com/sign-in
       walletConnectV2ProjectId: '<your_wc_project_id_here>',
-      WalletConnectV2RelayAddresses: ['wss://relay.walletconnect.com'],
+      walletConnectV2RelayAddresses: ['wss://relay.walletconnect.com'],
       onLoginPending: () => {},
       onLoggedIn: () => {},
       onLogout: () => {},

@@ -31,7 +31,9 @@ interface InitOptions {
   apiUrl: string;
   chainType: string;
   apiTimeout: number;
-  walletConnectBridgeAddresses: string[],
+  // Remember to change it. Get yours here: https://cloud.walletconnect.com/sign-in
+  walletConnectV2ProjectId: string,
+  walletConnectV2RelayAddresses: string[],
   onLoginPending?: () => void;
   onLoggedIn?: () => void;
   onLogout?: () => void;
@@ -42,6 +44,8 @@ interface InitOptions {
     uiPending(false);
   },
   onTxError: (tx: Transaction, error: string) => { uiPending(false); }
+  onQrPending: () => void;
+  onQrLoaded: () => void;
 }
 ```
 
@@ -69,7 +73,7 @@ The primary initialization function. It is responsible for synchronizing with th
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.8.1/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
 
     const initElven = async () => {
       await ElvenJS.init(
@@ -77,9 +81,9 @@ The primary initialization function. It is responsible for synchronizing with th
           apiUrl: 'https://devnet-api.multiversx.com',
           chainType: 'devnet',
           apiTimeout: 10000,
-          // walletConnectBridgeAddresses is required only for custom addresses
-          // by default it will use https://bridge.walletconnect.org
-          walletConnectBridgeAddresses: ['https://bridge.walletconnect.org'],
+          // Remember to change it. Get yours here: https://cloud.walletconnect.com/sign-in
+          walletConnectV2ProjectId: '<your_wc_project_id_here>',
+          walletConnectV2RelayAddresses: ['wss://relay.walletconnect.com'],
           onLoginPending: () => { /* do something when login pending */ },
           onLoggedIn: () => { /* do something when logged in */ },
           onLogout: () => { /* do something when logged out */ },
@@ -87,6 +91,8 @@ The primary initialization function. It is responsible for synchronizing with th
           onTxSent: (tx) => { /* do something when transaction was sent */ },
           onTxFinalized: (tx) => { /* do something when transaction was finalized */ },
           onTxError: (tx, error) => { /* do something when transaction error occured */ }
+          onQrPending: () => { /* do something when QR code element is loading */ };
+          onQrLoaded: () => { /* do something when QR code element is loaded */ };
         }
       );
     }
@@ -137,7 +143,7 @@ One interface for logging in with all possible auth providers. It is the core fu
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.8.1/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -204,7 +210,7 @@ Logout function will remove the localStorage entries. It will work the same with
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.8.1/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -255,7 +261,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
       Address,
       TransactionPayload,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.8.1/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -338,7 +344,7 @@ Querying smart contracts is possible with this function. You must pass the smart
       AddressValue,
       ContractFunction,
       TokenPayment
-    } from 'https://unpkg.com/elven.js@0.8.1/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -441,7 +447,7 @@ import {
   Address,
   ContractCallPayloadBuilder,
   ContractFunction
-} from 'https://unpkg.com/elven.js@0.8.1/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
 ```
 
 There will probably be more of them, but the ElvenJS library should be as small as possible. Maybe some of them will land in separate libraries like the planned query results parser library.
