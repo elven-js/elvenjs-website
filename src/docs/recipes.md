@@ -472,6 +472,23 @@ They are self-explanatory. `onTxSent` will fire after sending (the transaction o
 
 In case of the error, the `onTxError` will additionally contain the error message.  
 
+### Styling elements
+
+There are a couple of elements that use external styles. Feel free to copy styles if needed. You can check the examples in the `example` directory.
+
+No styles are attached to QR code elements and WalletConnect pairings list by default. But each piece has CSS classes that you can use.
+
+The list of classes: 
+- `.elven-qr-code-deep-link`
+- `.elven-wc-pairings`
+- `.elven-wc-pairings-header`
+- `.elven-wc-pairing-item`
+- `.elven-wc-pairings-remove-btn`
+- `.elven-wc-pairing-item-description`
+- `.elven-wc-pairing-item-confirm-msessage`
+
+For more info, check the demo in the `example` directory. Please let us know if you need more styling flexibility and options. Describe your use cases [here](https://github.com/juliancwirko/elven.js/issues).
+
 ### Working demos
 
 The demos are linked on the homepage, but let's bring them also here:
