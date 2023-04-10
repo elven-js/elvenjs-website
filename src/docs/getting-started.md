@@ -21,7 +21,7 @@ The tool is a wrapper for [sdk-js](https://docs.multiversx.com/sdk-and-tools/sdk
 
 ## What Elven.js can do?
 
-The fundamental functionality is connecting and logging the user using auth providers. For now, Elven.js supports three of four existing - The MultiversX [browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm) (MultiversX Defi), [xPortal Mobile app](https://get.maiar.com/referral/rdmfba3md2), and MultiversX Web Wallet. In the future, it will also support [Ledger Nano](https://www.ledger.com/) hardware wallet.
+The fundamental functionality is connecting and logging the user using auth providers. For now, Elven.js supports three of four existing - The MultiversX [browser extension](https://chrome.google.com/webstore/detail/multiversx-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm) (MultiversX Defi), [xPortal Mobile app](https://xportal.com/), and MultiversX Web Wallet. In the future, it will also support [Ledger Nano](https://www.ledger.com/) hardware wallet.
 
 So basically, the user can attach the Elven.js script and start authenticating users on the front end. There is also an option to pass a unique token and get a signature after authentication, which you can use for additional backend verification. You will read more about it in the [recipes](/docs/recipes.html) section.
 
@@ -47,7 +47,7 @@ Let's see how to import it from the CDN:
 <html>
   <body>
     <script type="module">
-      import { ElvenJS } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
+      import { ElvenJS } from 'https://unpkg.com/elven.js@0.9.0/build/elven.js';
 
       const initElven = async () => {
         await ElvenJS.init(
@@ -77,7 +77,7 @@ Let's see how to import it from the CDN:
 </html>
 ```
 
-As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.8.2: `elven.js@0.8.2`).
+As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.9.0: `elven.js@0.9.0`).
 
 You can check the demo examples linked on the homepage.
 

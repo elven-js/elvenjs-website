@@ -20,7 +20,7 @@ Remember that you can use the ElvenJS not only in static websites but let's focu
 
 ### How to login and logout with auth providers
 
-ElvenJS offers two of four auth providers for now. They are the [xPortal Mobile app](https://get.maiar.com/referral/rdmfba3md2), [MultiversX browser extension](https://chrome.google.com/webstore/detail/maiar-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm), and MultiversX Web Wallet. There will also be support for the [Ledger Nano](https://www.ledger.com/) and Ledger Nano.
+ElvenJS offers two of four auth providers for now. They are the [xPortal Mobile app](https://xportal.com/), [MultiversX browser extension](https://chrome.google.com/webstore/detail/multiversx-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm), and MultiversX Web Wallet. There will also be support for the [Ledger Nano](https://www.ledger.com/) and Ledger Nano.
 
 To be able to login you need to initialize ElvenJs and then use the login function:
 
@@ -44,7 +44,7 @@ To be able to login you need to initialize ElvenJs and then use the login functi
     // import ElvenJS parts from CDN 
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.9.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -163,8 +163,8 @@ For this example, let's omit the code responsible for initialization and auth. Y
       Transaction,
       Address,
       TransactionPayload,
-      TokenPayment
-    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
+      TokenTransfer
+    } from 'https://unpkg.com/elven.js@0.9.0/build/elven.js';
 
     // (...) Init and login logic here, check how above
 
@@ -190,7 +190,7 @@ For this example, let's omit the code responsible for initialization and auth. Y
           // Build transaction payload data, here very simple string
           data: new TransactionPayload(demoMessage),
           // EGLD value to send
-          value: TokenPayment.egldFromAmount(0.001),
+          value: TokenTransfer.egldFromAmount(0.001),
           // Your address, we can get it from the storage, because you should be loggedin
           sender: new Address(ElvenJS.storage.get('address')),
         });
@@ -236,11 +236,11 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
     // import ElvenJS parts from CDN 
     import {
       ElvenJS,
-      ESDTTransferPayloadBuilder,
-      Transaction,
       Address,
-      TokenPayment,
-    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
+      TokenTransfer,
+      TransferTransactionsFactory,
+      GasEstimator,
+    } from 'https://unpkg.com/elven.js@0.9.0/build/elven.js';
 
     // (...) Init and login logic here, check how above 
 
@@ -255,20 +255,20 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
 
         // We need to build the payment here, we need to provide some data
         // Token id, amount and decimal places (check sdk-js cookbook for more info)
-        const payment = TokenPayment.fungibleFromAmount(
+        const payment = TokenTransfer.fungibleFromAmount(
           'BUILDO-890d14',
           '1',
           18
         );
 
-        // Here we are preparing the transaction data payload
-        const data = new ESDTTransferPayloadBuilder().setPayment(payment).build();
+        // Here we are preparing the transfer factory
+        // We use default GasEstimator - this way we don't have to worry about providing gas limit vale
+        const factory = new TransferTransactionsFactory(new GasEstimator());
 
-        // And here finally is our transaction. 
+        // And here we have actual transaction
         // It doesn't need the value field, because we don't send the EGLD
-        const tx = new Transaction({
-          data,
-          gasLimit: 50000 + 1500 * data.length() + 300000,
+        const tx = factory.createESDTTransfer({
+          tokenTransfer: transfer,
           receiver: new Address(esdtTransferAddress),
           sender: new Address(ElvenJS.storage.get('address')),
           chainID: 'D',
@@ -309,11 +309,13 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
     // import ElvenJS parts from CDN 
     import {
       ElvenJS,
-      ESDTTransferPayloadBuilder,
       Transaction,
       Address,
-      TokenPayment,
-    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
+      TokenTransfer,
+      SmartContract,
+      ContractFunction,
+      U32Value,
+    } from 'https://unpkg.com/elven.js@0.9.0/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 
@@ -330,21 +332,17 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
         // Again, we are preparing the data payload using different helpers
         // The function on smart contract is called 'mint'
         // It also takes one argument which is the amount to mint
-        const data = new ContractCallPayloadBuilder()
-          .setFunction(new ContractFunction('mint'))
-          .setArgs([new U32Value(1)])
-          .build();
+        const contractAddress = new Address(nftMinterSmartContract);
+        const contract = new SmartContract({ address: contractAddress });
 
-        // Then we need our transaction instance
-        const tx = new Transaction({
-          data,
+        const tx = contract.call({
+          caller: new Address(ElvenJS.storage.get('address')),
+          value: TokenTransfer.egldFromAmount(0.01),
+          func: new ContractFunction("mint"),
           gasLimit: 14000000,
-          // The cost of minting on smart contract is set to 0.01 EGLD
-          value: TokenPayment.egldFromAmount(0.01),
-          chainID: 'D',
-          receiver: new Address(nftMinterSmartContract),
-          sender: new Address(ElvenJS.storage.get('address')),
-        });
+          args: [new U32Value(1)],
+          chainID: "D"
+        })
 
         try {
           // We still use the same ElvenJS function for that, 
@@ -384,11 +382,10 @@ We will query the minter smart contract to get the number of NFTs already minted
     // import ElvenJS parts from CDN 
     import {
       ElvenJS,
-      ESDTTransferPayloadBuilder,
-      Transaction,
       Address,
-      TokenPayment,
-    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
+      AddressValue,
+      ContractFunction,
+    } from 'https://unpkg.com/elven.js@0.9.0/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 
@@ -459,6 +456,21 @@ ElvenJS.storage.get('signature')
 ```
 
 Then you will need to send three things to your backend, the signature, the token, and your public wallet address. On the backend, you will need to use sdk-js and a couple of operations described in the link above to verify the signature.
+
+### Transactions states and execution flow
+
+When you use `ElvenJS.signAndSendTransaction`, a couple of callbacks will be called (You can define them in the `ElvenJS.init`), depending on the progress of current transactions. 
+
+These are: 
+
+- `onTxStarted?: (transaction: Transaction) => void;`
+- `onTxSent?: (transaction: Transaction) => void;`
+- `onTxFinalized?: (transaction: Transaction) => void;`
+- `onTxError?: (transaction: Transaction, error: string) => void;`
+
+They are self-explanatory. `onTxSent` will fire after sending (the transaction object will not contain the signature yet). The `onTxFinalized` will fire after the transaction is finalized on chain (the transaction object will contain the signature).
+
+In case of the error, the `onTxError` will additionally contain the error message.  
 
 ### Working demos
 
