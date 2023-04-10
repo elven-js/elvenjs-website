@@ -56,7 +56,8 @@ The primary initialization function. It is responsible for synchronizing with th
 - `apiUrl`MultiversX API URL - can be the public or private instance,
 - `chainType`Chain type identification - can be devnet, testnet, or mainnet,
 - `apiTimeout`: The API call timeout in milliseconds. Maximum 10000,
-- `walletConnectBridgeAddresses`: You can pass your custom WalletConnect bridge adresses, by default it will use https://bridge.walletconnect.org
+- `walletConnectV2ProjectId`: Get yours from https://cloud.walletconnect.com/sign-in,
+- `walletConnectV2RelayAddresses`: You can pass your custom WalletConnect relay adresses, by default it will use 'wss://relay.walletconnect.com'
 - `onLoginPending`: On login pending callback. It is used across all the auth providers,
 - `onLoggedIn`: On logged in callback. It is used across all the auth providers,
 - `onLogout`: On logout callback. It is used across all the auth providers,
@@ -64,6 +65,8 @@ The primary initialization function. It is responsible for synchronizing with th
 - `onTxSent`: On transactions sent callback. It is used across all the auth providers. The transaction sent, but not finalized on chain. You can get its hash at this point.
 - `onTxFinalized`: On transactions finalized callback. It is used across all the auth providers. You can use the transaction payload's current state.
 - `onTxError`: On transactions errors callback. You can catch errors and manage UI states.
+- `onQrPending`: Qr element load pending callback
+- `onQrLoaded`: QR element loaded callback
 
 **Usage example**:
 
@@ -73,7 +76,7 @@ The primary initialization function. It is responsible for synchronizing with th
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.9.0/build/elven.js';
 
     const initElven = async () => {
       await ElvenJS.init(
@@ -143,7 +146,7 @@ One interface for logging in with all possible auth providers. It is the core fu
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.9.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -210,7 +213,7 @@ Logout function will remove the localStorage entries. It will work the same with
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.9.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -260,8 +263,8 @@ The sign and send transaction handle one transaction at a time. This is basic fu
       Transaction,
       Address,
       TransactionPayload,
-      TokenPayment
-    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
+      TokenTransfer
+    } from 'https://unpkg.com/elven.js@0.9.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -280,7 +283,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
           gasLimit: 50000 + 1500 * demoMessage.length,
           chainID: 'D',
           data: new TransactionPayload(demoMessage),
-          value: TokenPayment.egldFromAmount(0.001),
+          value: TokenTransfer.egldFromAmount(0.001),
           sender: new Address(ElvenJS.storage.get('address')),
         });
 
@@ -297,7 +300,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
 
 You can also see the transaction instance here. There is a couple of classes exported from sdk-js. You can think of them as helper tools for data preparation. More about them later.
 
-### Query smart contracts
+### Querying a smart contract
 
 **Function**:
 ```typescript
@@ -343,14 +346,15 @@ Querying smart contracts is possible with this function. You must pass the smart
       Address,
       AddressValue,
       ContractFunction,
-      TokenPayment
-    } from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.9.0/build/elven.js';
 
     // Initialization first (see above) ...
     
     // Some other stuff here ...
 
-    const minterAddress = "erd1druav0mlt7wzutla33kw80ueaalmec7mz2hus5svdmzlfj286qpstg674t";
+    // You can also use currently logged in user addres: ElvenJS.storage.get('address')
+    const randomUserAddress = "erd1druav0mlt7wzutla33kw80ueaalmec7mz2hus5svdmzlfj286qpstg674t";
+    
     document
       .getElementById('button-query')
       .addEventListener('click', async () => {
@@ -358,7 +362,7 @@ Querying smart contracts is possible with this function. You must pass the smart
           const results = await ElvenJS.queryContract({
             address: new Address(nftMinterSmartContract),
             func: new ContractFunction('getMintedPerAddressTotal'),
-            args: [new AddressValue(new Address(minterAddress))]
+            args: [new AddressValue(new Address(randomUserAddress))]
           });
 
           // Manual decoding of a simple type (number here) with aa custom helper function, 
@@ -423,22 +427,32 @@ Mostly helpful in single-page applications where you would like to do some clean
 
 Below is the list of exported helpers, classes, and types from sdk-js. You can read more about them in the [sdk-js cookbook](https://docs.multiversx.com/sdk-and-tools/sdk-js/sdk-js-cookbook), also please check the [recipes](/docs/recipes.html) section, where you will find some of the use cases related to these:
 
-- `TokenPayment`
+- `TokenTransfer`
+- `TransferTransactionsFactory`
+- `GasEstimator`
 - `Address`
-- `AddressValue`
 - `Account`
 - `Transaction`
 - `TransactionPayload`
 - `TransactionWatcher`
-- `BytesValue`
-- `BigUIntValue`
-- `U32Value`
-- `BooleanValue`
-- `ContractCallPayloadBuilder`
-- `ESDTTransferPayloadBuilder`
-- `ESDTNFTTransferPayloadBuilder`
-- `ContractFunction`
 - `SmartContract`
+- `ContractFunction`
+- `BytesType`
+- `BytesValue`
+- `U16Type`
+- `U16Value`
+- `U32Type`
+- `U32Value`
+- `U64Type`
+- `U64Value`
+- `U8Type`
+- `U8Value`
+- `BigUIntType`
+- `BigUIntValue`
+- `BooleanType`
+- `BooleanValue`
+- `AddressType`
+- `AddressValue`
 
 You can import them directly from elven.js without the ElvenJS namespace. Like:
 
@@ -447,7 +461,7 @@ import {
   Address,
   ContractCallPayloadBuilder,
   ContractFunction
-} from 'https://unpkg.com/elven.js@0.8.2/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.9.0/build/elven.js';
 ```
 
 There will probably be more of them, but the ElvenJS library should be as small as possible. Maybe some of them will land in separate libraries like the planned query results parser library.
