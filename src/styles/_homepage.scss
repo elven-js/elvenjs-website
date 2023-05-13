@@ -47,6 +47,21 @@
     }
   }
 
+  &.third {
+    font-size: 18px;
+    font-weight: 600;
+    padding-bottom: 70px;
+    padding-top: 20px;
+
+    @media screen and (max-width: 600px) {
+      font-size: 16px;
+    }
+  }
+
+  &.no-padding {
+    padding: 0;
+  }
+
   @media screen and (max-width: 760px) {
     font-size: 65px;
     padding-top: 30px;
