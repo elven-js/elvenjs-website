@@ -16,7 +16,7 @@ githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/r
 
 In this section, we will check real-world examples. Of course, you can also check the code in many demos linked on the homepage. Let's see the most common cases here.
 
-Remember that you can use the ElvenJS not only in static websites but let's focus only on such ones for simplicity. Check the linked demos on StackBlitz to learn how to use it, for example, with Astro or SolidJS.
+Remember that you can use the ElvenJS not only in static websites but let's focus only on such ones for simplicity. Check the linked demos on StackBlitz to learn how to use it, for example, with Vue or SolidJS.
 
 ### How to login and logout with auth providers
 
@@ -494,9 +494,8 @@ For more info, check the demo in the `example` directory. Please let us know if 
 The demos are linked on the homepage, but let's bring them also here:
 
 - [elvenjs.netlify.app](https://elvenjs.netlify.app/) - EGLD, ESDT transactions, smart contract queries and transactions
-- [elrond-donate-widget-demo.netlify.app](https://elrond-donate-widget-demo.netlify.app/) - donation-like widget demo on Astro based blog example
+- [elrond-donate-widget-demo.netlify.app](https://elrond-donate-widget-demo.netlify.app/) - donation-like widget demo
 - [StackBlitz vanilla html demo](https://stackblitz.com/edit/web-platform-d4rx5v?file=index.html)
-- [StackBlitz Astro demo](https://stackblitz.com/edit/withastro-astro-pwareu?file=src%2Fpages%2Findex.astro)
 - [StackBlitz Solid.js demo](https://stackblitz.com/edit/vitejs-vite-rbo6du?file=src/App.tsx)
 - [StackBlitz React demo](https://stackblitz.com/edit/vitejs-vite-qr2u7l?file=src/App.tsx)
 - [StackBlitz Vue demo](https://stackblitz.com/edit/vue-zrb8y5?file=src/App.vue)
