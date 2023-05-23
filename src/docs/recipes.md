@@ -44,7 +44,7 @@ To be able to login you need to initialize ElvenJs and then use the login functi
     // import ElvenJS parts from CDN 
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.9.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.10.1/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -164,7 +164,7 @@ For this example, let's omit the code responsible for initialization and auth. Y
       Address,
       TransactionPayload,
       TokenTransfer
-    } from 'https://unpkg.com/elven.js@0.9.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.10.1/build/elven.js';
 
     // (...) Init and login logic here, check how above
 
@@ -240,7 +240,7 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
       TokenTransfer,
       TransferTransactionsFactory,
       GasEstimator,
-    } from 'https://unpkg.com/elven.js@0.9.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.10.1/build/elven.js';
 
     // (...) Init and login logic here, check how above 
 
@@ -315,7 +315,7 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
       SmartContract,
       ContractFunction,
       U32Value,
-    } from 'https://unpkg.com/elven.js@0.9.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.10.1/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 
@@ -385,7 +385,7 @@ We will query the minter smart contract to get the number of NFTs already minted
       Address,
       AddressValue,
       ContractFunction,
-    } from 'https://unpkg.com/elven.js@0.9.2/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.10.1/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 
@@ -430,32 +430,15 @@ We will query the minter smart contract to get the number of NFTs already minted
 </html>
 ```
 
-### How to use the login token
+### How to verify the user on the backend side
 
-First of all, using the login token in only the frontend-based app isn't required. This is more like additional verification of the user on the backend side of your application.
+<div class="docs-box docs-info-box">
+You don't need to worry about this section if you don't plan to do any verification on the backend side of your application.
+</div>
 
-The login token is your unique hash or whatever you like that is passed when logging in and signed by your wallet using login auth providers. The signature is returned to your browser and saved in localStorage. Such a signature and token can then be sent to your custom backend, and with your public address, the backend can verify it. Then, for example, you could have a logic that will prepare the JWT token and send it back to the frontend app.
+By default elven.js uses [@multiversx/sdk-native-auth-client](https://www.npmjs.com/package/@multiversx/sdk-native-auth-client) under the hood.
 
-The tools and logic required for verification on the backend are out of the scope of this library, but you can use sdk-js for that on your Node backend. Here is an example and docs on how to do that:  [Elven Tools Dapp backend integration](https://www.elven.tools/docs/dapp-backend-integration.html#dapp-backend-integration).
-
-On the frontend part with Elven.js, you would only need to pass your token when logging in. This will look like that:
-
-```typescript
-(...)
-
-// The token is just an example, it can be anything
-ElvenJS.login('browser-extension', { token: "d052ee8c9acb023d521ef3" })
-
-(...)
-```
-
-Then you can get the signature:
-
-```typescript
-ElvenJS.storage.get('signature')
-```
-
-Then you will need to send three things to your backend, the signature, the token, and your public wallet address. On the backend, you will need to use sdk-js and a couple of operations described in the link above to verify the signature.
+When logging in using one of the signing providers, a `loginToken` will be generated for you. It will then be used to acquire the signature. All with your account address will be then used to create `accessToken`. With that token, you can verify the user on the backend side, for example, using [@multiversx/sdk-native-auth-server](https://www.npmjs.com/package/@multiversx/sdk-native-auth-server).
 
 ### Transactions states and execution flow
 

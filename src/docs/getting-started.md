@@ -47,7 +47,7 @@ Let's see how to import it from the CDN:
 <html>
   <body>
     <script type="module">
-      import { ElvenJS } from 'https://unpkg.com/elven.js@0.9.2/build/elven.js';
+      import { ElvenJS } from 'https://unpkg.com/elven.js@0.10.1/build/elven.js';
 
       const initElven = async () => {
         await ElvenJS.init(
@@ -77,7 +77,7 @@ Let's see how to import it from the CDN:
 </html>
 ```
 
-As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.9.2: `elven.js@0.9.2`).
+As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.10.1: `elven.js@0.10.1`).
 
 You can check the demo examples linked on the homepage.
 
