@@ -470,7 +470,7 @@ The list of classes:
 - `.elven-wc-pairing-item-description`
 - `.elven-wc-pairing-item-confirm-msessage`
 
-For more info, check the demo in the `example` directory. Please let us know if you need more styling flexibility and options. Describe your use cases [here](https://github.com/juliancwirko/elven.js/issues).
+For more info, check the demo in the `example` directory. Please let us know if you need more styling flexibility and options. Describe your use cases [here](https://github.com/elven-js/elven.js/issues).
 
 ### Working demos
 

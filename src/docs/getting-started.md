@@ -39,7 +39,7 @@ Internally Elven.js uses Typescript, but finally, it is a standard minified Java
 
 ## How to start using it?
 
-Because Elven.js is just a JavaScript file, you can import it from CDN and start using its inner parts. You can also copy the file version from the [build](https://github.com/juliancwirko/elven.js/tree/main/build) directory in the repository.
+Because Elven.js is just a JavaScript file, you can import it from CDN and start using its inner parts. You can also copy the file version from the [build](https://github.com/elven-js/elven.js/tree/main/build) directory in the repository.
 
 Let's see how to import it from the CDN:
 
@@ -124,7 +124,7 @@ Because of the ability to adapt to any frontend framework Elven.js is an excelle
 
 ## Demo video
 
-Remember that the video will be outdated. Check the version and [changelog](https://github.com/juliancwirko/elven.js/blob/main/CHANGELOG.md).
+Remember that the video will be outdated. Check the version and [changelog](https://github.com/elven-js/elven.js/blob/main/CHANGELOG.md).
 
 <div class="embeded-media-container">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/tcTukpkjcQw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

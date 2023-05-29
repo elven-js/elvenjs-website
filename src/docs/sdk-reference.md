@@ -16,7 +16,7 @@ githubUrl: "https://github.com/juliancwirko/elvenjs-website/edit/main/src/docs/s
 
 The Elven.js tool will be as simple as possible. It exports a couple of helper functions. It also exports several data structures (types) from [sdk-js](https://docs.multiversx.com/sdk-and-tools/sdk-js/) libraries. Here you will find a description of all the parts, and then you can check the [recipes](/docs/recipes.html) section for real-world examples.
 
-Worth mentioning. Remember to check the source code, written in Typescript. You will find all the source files here: [elven.js/src](https://github.com/juliancwirko/elven.js/tree/main/src).
+Worth mentioning. Remember to check the source code, written in Typescript. You will find all the source files here: [elven.js/src](https://github.com/elven-js/elven.js/tree/main/src).
 
 ### Initialization
 
