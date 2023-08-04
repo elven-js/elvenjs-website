@@ -67,7 +67,7 @@ To be able to login you need to initialize ElvenJs and then use the login functi
           onLogout: () => { uiLoggedInState(false); },
           // Define transactions callbacks (all are optional)
           onTxStarted: (tx) => { uiPending(true); },
-          onTxSent: (tx) => { console.log('Tx sent, but not finalized on the chain!'); }
+          onTxSent: (tx) => { console.log('Tx sent, but not finalized on the chain!'); },
           onTxFinalized: (tx) => { 
             tx?.hash && updateTxHashContainer(tx.hash); uiPending(false);
           },
