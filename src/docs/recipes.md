@@ -44,7 +44,7 @@ To be able to login you need to initialize ElvenJs and then use the login functi
     // import ElvenJS parts from CDN 
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.11.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.12.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -164,7 +164,7 @@ For this example, let's omit the code responsible for initialization and auth. Y
       Address,
       TransactionPayload,
       TokenTransfer
-    } from 'https://unpkg.com/elven.js@0.11.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.12.0/build/elven.js';
 
     // (...) Init and login logic here, check how above
 
@@ -177,6 +177,8 @@ For this example, let's omit the code responsible for initialization and auth. Y
         updateTxHashContainer(false);
         const demoMessage = 'Transaction demo from Elven.js!';
 
+        const isGuarded = ElvenJS.storage.get('activeGuardian');
+        
         // predefined transaction, this is how it is usually built
         const tx = new Transaction({
           // Get the actal nonce from storage
@@ -184,7 +186,8 @@ For this example, let's omit the code responsible for initialization and auth. Y
           // Get the receiver of the EGLD
           receiver: new Address(egldTransferAddress),
           // Calculate gas limit (check MultiversX docs)
-          gasLimit: 50000 + 1500 * demoMessage.length,
+          // You will need additional 50000 when using guardians
+          gasLimit: (isGuarded ? 100000 : 50000) + 1500 * demoMessage.length,
           // Define the chain id (D for the devnet, T for the testnet, 1 for the mainnet)
           chainID: 'D',
           // Build transaction payload data, here very simple string
@@ -240,7 +243,7 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
       TokenTransfer,
       TransferTransactionsFactory,
       GasEstimator,
-    } from 'https://unpkg.com/elven.js@0.11.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.12.0/build/elven.js';
 
     // (...) Init and login logic here, check how above 
 
@@ -315,7 +318,7 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
       SmartContract,
       ContractFunction,
       U32Value,
-    } from 'https://unpkg.com/elven.js@0.11.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.12.0/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 
@@ -335,11 +338,14 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
         const contractAddress = new Address(nftMinterSmartContract);
         const contract = new SmartContract({ address: contractAddress });
 
+        const isGuarded = ElvenJS.storage.get('activeGuardian');
+
         const tx = contract.call({
           caller: new Address(ElvenJS.storage.get('address')),
           value: TokenTransfer.egldFromAmount(0.01),
           func: new ContractFunction("mint"),
-          gasLimit: 14000000,
+          // You need 50000 more when using guardians
+          gasLimit: isGuarded ?  : 14050000 ? 14000000,
           args: [new U32Value(1)],
           chainID: "D"
         })
@@ -385,7 +391,7 @@ We will query the minter smart contract to get the number of NFTs already minted
       Address,
       AddressValue,
       ContractFunction,
-    } from 'https://unpkg.com/elven.js@0.11.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.12.0/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 

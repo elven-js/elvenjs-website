@@ -76,7 +76,7 @@ The primary initialization function. It is responsible for synchronizing with th
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.11.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.12.0/build/elven.js';
 
     const initElven = async () => {
       await ElvenJS.init(
@@ -145,7 +145,7 @@ One interface for logging in with all possible auth providers. It is the core fu
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.11.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.12.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -212,7 +212,7 @@ Logout function will remove the localStorage entries. It will work the same with
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.11.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.12.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -263,7 +263,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
       Address,
       TransactionPayload,
       TokenTransfer
-    } from 'https://unpkg.com/elven.js@0.11.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.12.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -276,10 +276,14 @@ The sign and send transaction handle one transaction at a time. This is basic fu
       .addEventListener('click', async () => {
         const demoMessage = 'Transaction demo from Elven.js!';
 
+        const isGuarded = ElvenJS.storage.get('activeGuardian');
+        // You will need additional 50000 when using guardians
+        const gasLimit = (isGuarded ? 100000 : 50000) + 1500 * demoMessage.length;
+
         const tx = new Transaction({
           nonce: ElvenJS.storage.get('nonce'),
           receiver: new Address(egldTransferAddress),
-          gasLimit: 50000 + 1500 * demoMessage.length,
+          gasLimit,
           chainID: 'D',
           data: new TransactionPayload(demoMessage),
           value: TokenTransfer.egldFromAmount(0.001),
@@ -345,7 +349,7 @@ Querying smart contracts is possible with this function. You must pass the smart
       Address,
       AddressValue,
       ContractFunction,
-    } from 'https://unpkg.com/elven.js@0.11.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.12.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -380,9 +384,10 @@ Querying smart contracts is possible with this function. You must pass the smart
 ###  Storage handling
 
 ```typescript
-ElvenJS.storage.get()
-ElvenJS.storage.set()
-ElvenJS.storage.clear()
+ElvenJS.storage.get(); // all keys
+ElvenJS.storage.get('address'); // single key
+ElvenJS.storage.set('address', 'erd1...'); // set the value for a key
+ElvenJS.storage.clear();
 ```
 
 Storage is a thin wrapper over the localStorage. All data required for synchronization on page refresh is kept there.
@@ -392,6 +397,7 @@ Remember that it shouldn't be used as a custom localStorage operations replaceme
 - `signature` - auth signature when you provide the auth token
 - `loginToken` - the token you pass in the login function to get the signature back (optional)
 - `address` - actually logged in erd address
+- `activeGuardian` - active guardian assigned for the address
 - `loginMethod` - actually chosen login method, for example, `browser-extension`
 - `expires` - when your current session will expire
 `balance` - your actual Egld balance
@@ -403,12 +409,14 @@ Example of the localStorage data:
 {
   "signature":"42946a91f332eb3e413bc7ac18b8246bca1cb230ef2813ed714cd0417c95a8eb8104ce4e7d7c9ce1fb03853e10e7817416f8a8e789111df89909cd973f41ee0b",
   "address":"erd1druav0mlt7wzutla33kw80ueaalmec7mz2hus5svdmzlfj286qpstg674t",
+  "activeGuardian": "erd1cscs8styv2ahllym0twsanezd4v65mcf5fungfvazgsfmuhwlehstadanq",
   "loginMethod":"browser-extension",
   "expires":1663881876868,
   "nonce":166,
   "balance":"6089909418940000000"
 }
 ```
+
 The storage key is `elvenjs_state`.
 
 ### Destroy and cleanup
@@ -460,7 +468,7 @@ import {
   Address,
   ContractCallPayloadBuilder,
   ContractFunction
-} from 'https://unpkg.com/elven.js@0.11.0/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.12.0/build/elven.js';
 ```
 
 There will probably be more of them, but the ElvenJS library should be as small as possible. Maybe some of them will land in separate libraries like the planned query results parser library.
