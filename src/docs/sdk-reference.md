@@ -117,6 +117,7 @@ enum LoginMethodsEnum {
   ledger = 'ledger', // not implemented yet
   mobile = 'mobile',
   webWallet = 'web-wallet',
+  xAlias = 'x-alias',
   browserExtension = 'browser-extension',
 }
 
@@ -130,7 +131,7 @@ One interface for logging in with all possible auth providers. It is the core fu
 
 **Arguments**:
 
-- `loginMethod`: one of four login methods (ledger, mobile, web-wallet, browser-extension) (for now, two of them are implemented)
+- `loginMethod`: one of five login methods (ledger, mobile, web-wallet, x-alias, browser-extension) (for now, four of them are implemented)
 - `options` as options, you can pass the `token`, which is a unique string that can be used for signature generation and user verification. You can also define `qrCodeContainer`, the DOM element id or DOM element in which the mobile QR code will be displayed, and `callbackRoute` used for web-wallet.
 
 **Usage example**:
@@ -182,6 +183,16 @@ One interface for logging in with all possible auth providers. It is the core fu
       .addEventListener('click', async () => {
         try {
           await ElvenJS.login('web-wallet', { callbackRoute: '/' });
+        } catch (e) {
+          console.log('Login: Something went wrong, try again!', e?.message);
+        }
+      });
+
+    document
+      .getElementById('button-login-x-alias')
+      .addEventListener('click', async () => {
+        try {
+          await ElvenJS.login('x-alias', { callbackRoute: '/' });
         } catch (e) {
           console.log('Login: Something went wrong, try again!', e?.message);
         }
