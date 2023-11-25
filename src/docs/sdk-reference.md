@@ -67,6 +67,9 @@ The primary initialization function. It is responsible for synchronizing with th
 - `onTxError`: On transactions errors callback. You can catch errors and manage UI states.
 - `onQrPending`: Qr element load pending callback
 - `onQrLoaded`: QR element loaded callback
+- `onSignMsgStarted`: Used when the sign message operation started.
+- `onSignMsgError`: Used when there is an error while signing a message
+- `onSignMsgFinalized`: Used when signing message is finished and you can get the signature
 
 **Usage example**:
 
@@ -76,7 +79,7 @@ The primary initialization function. It is responsible for synchronizing with th
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.13.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
 
     const initElven = async () => {
       await ElvenJS.init(
@@ -93,9 +96,12 @@ The primary initialization function. It is responsible for synchronizing with th
           onTxStarted: (tx) => { /* do something when transaction started */ },
           onTxSent: (tx) => { /* do something when transaction was sent */ },
           onTxFinalized: (tx) => { /* do something when transaction was finalized */ },
-          onTxError: (tx, error) => { /* do something when transaction error occured */ }
-          onQrPending: () => { /* do something when QR code element is loading */ };
-          onQrLoaded: () => { /* do something when QR code element is loaded */ };
+          onTxError: (tx, error) => { /* do something when transaction error occured */ },
+          onQrPending: () => { /* do something when QR code element is loading */ },
+          onQrLoaded: () => { /* do something when QR code element is loaded */ },
+          onSignMsgStarted: (message) => { /* do something when signing message started */ },
+          onSignMsgError: (message, error) => { /* do something when there is an error while signing a message */ }
+          onSignMsgFinalized: (message, messageSignature) => { /* do something when signing message operation is finished */ }
         }
       );
     }
@@ -146,7 +152,7 @@ One interface for logging in with all possible auth providers. It is the core fu
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.13.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -223,7 +229,7 @@ Logout function will remove the localStorage entries. It will work the same with
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.13.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -274,7 +280,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
       Address,
       TransactionPayload,
       TokenTransfer
-    } from 'https://unpkg.com/elven.js@0.13.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -313,6 +319,50 @@ The sign and send transaction handle one transaction at a time. This is basic fu
 ```
 
 You can also see the transaction instance here. There is a couple of classes exported from sdk-js. You can think of them as helper tools for data preparation. More about them later.
+
+### Signing a message
+
+**Function**:
+```typescript
+await ElvenJS.signMessage(message: string, options?: { callbackUrl?: string })
+```
+
+Sign a custom message using all supported providers. You will get the signature. You can verify the signature wherever you need it. It is usually done on the backend side. To verify, you can use [sdk-js](https://docs.multiversx.com/sdk-and-tools/sdk-js/sdk-js-cookbook#verifying-signatures). Or other MultiversX SDKs.
+
+**Arguments**:
+
+- `message`: message to sign
+- `options`: available only for Web Wallet provider. You can set `callbackUrl`
+
+**Usage example**: 
+
+```html
+<html>
+<body>
+  <button id="button-tx">Sign a message</button>
+
+  <script type="module">
+    import {
+      ElvenJS,
+    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
+
+    // Initialization first (see above) ...
+    
+    // Some other stuff here ...
+
+    document
+      .getElementById('button-tx')
+      .addEventListener('click', async () => {
+        try {
+          await ElvenJS.signMessage('Elven Family is awesome!');
+        } catch (e) {
+          throw new Error(e?.message);
+        }
+      });
+  </script>
+</body>
+</html>
+```
 
 ### Querying a smart contract
 
@@ -360,7 +410,7 @@ Querying smart contracts is possible with this function. You must pass the smart
       Address,
       AddressValue,
       ContractFunction,
-    } from 'https://unpkg.com/elven.js@0.13.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -471,6 +521,7 @@ Below is the list of exported helpers, classes, and types from sdk-js. You can r
 - `BooleanValue`
 - `AddressType`
 - `AddressValue`
+- `SignableMessage`
 
 You can import them directly from elven.js without the ElvenJS namespace. Like:
 
@@ -479,7 +530,7 @@ import {
   Address,
   ContractCallPayloadBuilder,
   ContractFunction
-} from 'https://unpkg.com/elven.js@0.13.0/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
 ```
 
 There will probably be more of them, but the ElvenJS library should be as small as possible. Maybe some of them will land in separate libraries like the planned query results parser library.

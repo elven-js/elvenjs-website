@@ -44,7 +44,7 @@ To be able to login you need to initialize ElvenJs and then use the login functi
     // import ElvenJS parts from CDN 
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.13.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -164,7 +164,7 @@ For this example, let's omit the code responsible for initialization and auth. Y
       Address,
       TransactionPayload,
       TokenTransfer
-    } from 'https://unpkg.com/elven.js@0.13.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
 
     // (...) Init and login logic here, check how above
 
@@ -243,7 +243,7 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
       TokenTransfer,
       TransferTransactionsFactory,
       GasEstimator,
-    } from 'https://unpkg.com/elven.js@0.13.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
 
     // (...) Init and login logic here, check how above 
 
@@ -318,9 +318,9 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
       SmartContract,
       ContractFunction,
       U32Value,
-    } from 'https://unpkg.com/elven.js@0.13.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
 
-    // (...) Init and login logic here, check how above ...
+    // (...) Init and login logic here, check how above ... You need to define callbacks for handling transactions
 
     // Here is the Elven Tools demo minter smart contract on the devnet
     // The one we will be calling to mint the NFT
@@ -365,6 +365,56 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
 
 You can check more about the NFT tokens on the MultiversX blockchain in the docs [here](https://docs.multiversx.com/tokens/nft-tokens/). Also, check the [Elven Tools](https://www.elven.tools) if you want to run your own PFP NFT collection on the MultiversX blockchain. Free and open source smart contract, CLI tool, and dApp template.
 
+### How to sign a custom message
+
+You can sign a message using your address as the key. But you don't have to worry about internals here. There is one function for that where you need to provide the message.
+
+```html
+<html>
+<body>
+  <button id="button-tx">Sign a message</button>
+
+  <script type="module">
+    import {
+      ElvenJS,
+    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
+
+    // Initialization first (see above) ... You need to define your callback for signing messages
+    
+    // Some other stuff here ...
+
+    document
+      .getElementById('button-tx')
+      .addEventListener('click', async () => {
+        try {
+          await ElvenJS.signMessage('Elven Family is awesome!');
+        } catch (e) {
+          throw new Error(e?.message);
+        }
+      });
+  </script>
+</body>
+</html>
+```
+
+### How to verify a custom message on backend
+
+For that you can use `UserVerifier` from `@multiversx/sdk-wallet` and `SignableMessage` from `@multiversx/sdk-core`.
+
+```ts
+import { UserVerifier } from "@multiversx/sdk-wallet";
+import { SignableMessage } from "@multiversx/sdk-core";
+
+const userVerifier = UserVerifier.fromAddress(addressOfUser);
+const message = new SignableMessage({ message: Buffer.from("hello") });
+const serializedMessage = message.serializeForSigning();
+const messageSignature = Buffer.from("{signature_hex_here}", "hex");
+
+userVerifier.verify(serializedMessage, messageSignature)
+```
+
+You can also use other SDKs. For example [sdk-py](https://docs.multiversx.com/sdk-and-tools/sdk-py/).
+
 ### How to query a smart contract
 
 Smart contracts can offer read-only endpoints/functions that you can query. Let's omit the initialization and login using ElvenJS here. Check it in the first point.
@@ -391,7 +441,7 @@ We will query the minter smart contract to get the number of NFTs already minted
       Address,
       AddressValue,
       ContractFunction,
-    } from 'https://unpkg.com/elven.js@0.13.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 
