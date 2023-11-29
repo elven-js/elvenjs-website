@@ -221,7 +221,7 @@ pre {
   height: $size-footer-height;
   padding: 0 30px;
   line-height: 1.3;
-  background-color: $color-background;
+  border-top: 1px solid #eaeaea;
 }
 
 .button {
@@ -308,7 +308,7 @@ pre {
 
 .page {
   min-height: calc(100vh - #{$size-header-sapace} - #{$size-footer-height});
-  background-color: $color-background;
+  background: radial-gradient(50% 50% at 50% 50%, #fff 0, #fafafa 100%);
 }
 
 .common-link {
