@@ -21,11 +21,11 @@ The tool is a wrapper for [sdk-js](https://docs.multiversx.com/sdk-and-tools/sdk
 
 ## What Elven.js can do?
 
-The fundamental functionality is connecting and logging the user using auth providers. For now, Elven.js supports three of four existing - The MultiversX [browser extension](https://chrome.google.com/webstore/detail/multiversx-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm) (MultiversX Defi), [xPortal Mobile app](https://xportal.com/), and MultiversX Web Wallet. In the future, it will also support [Ledger Nano](https://www.ledger.com/) hardware wallet.
+The fundamental functionality is connecting and logging in the user using auth providers. For now, Elven.js supports three of four existing - The MultiversX [browser extension](https://chrome.google.com/webstore/detail/multiversx-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm) (MultiversX Defi), [xPortal Mobile app](https://xportal.com/), and MultiversX Web Wallet. In the future, it will also support [Ledger Nano](https://www.ledger.com/) hardware wallet. It also supports [xPortal](https://xportal.com/) Hub integration and [xAlias](https://xalias.com/).
 
 So basically, the user can attach the Elven.js script and start authenticating users on the front end. There is also an option to pass a unique token and get a signature after authentication, which you can use for additional backend verification. You will read more about it in the [recipes](/docs/recipes.html) section.
 
-Besides authentication, Elven.js will also help with all the interactions, like sending native $EGLD tokens or even ESDT tokens. It will allow you to make most transactions, including interactions with custom smart contracts. There is also a possibility to query smart contracts. For now, you need to decode the returned data using custom logic, but there will be a separate utility soon.
+Besides authentication, Elven.js will also help with all the interactions, like sending native $EGLD tokens or even ESDT tokens. It will allow you to make most transactions, including interactions with custom smart contracts. It allows to sign custom messages. There is also a possibility to query smart contracts. For now, you need to decode the returned data using custom logic, but there will be a separate utility soon.
 
 ## How is Elven.js built?
 
@@ -47,7 +47,7 @@ Let's see how to import it from the CDN:
 <html>
   <body>
     <script type="module">
-      import { ElvenJS } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
+      import { ElvenJS } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
 
       const initElven = async () => {
         await ElvenJS.init(
@@ -80,7 +80,7 @@ Let's see how to import it from the CDN:
 </html>
 ```
 
-As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.14.0: `elven.js@0.14.0`).
+As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.15.0: `elven.js@0.15.0`).
 
 You can check the demo examples linked on the homepage.
 

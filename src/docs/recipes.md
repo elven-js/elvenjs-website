@@ -44,7 +44,7 @@ To be able to login you need to initialize ElvenJs and then use the login functi
     // import ElvenJS parts from CDN 
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -164,7 +164,7 @@ For this example, let's omit the code responsible for initialization and auth. Y
       Address,
       TransactionPayload,
       TokenTransfer
-    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
 
     // (...) Init and login logic here, check how above
 
@@ -243,7 +243,7 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
       TokenTransfer,
       TransferTransactionsFactory,
       GasEstimator,
-    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
 
     // (...) Init and login logic here, check how above 
 
@@ -318,7 +318,7 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
       SmartContract,
       ContractFunction,
       U32Value,
-    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
 
     // (...) Init and login logic here, check how above ... You need to define callbacks for handling transactions
 
@@ -377,7 +377,7 @@ You can sign a message using your address as the key. But you don't have to worr
   <script type="module">
     import {
       ElvenJS,
-    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
 
     // Initialization first (see above) ... You need to define your callback for signing messages
     
@@ -441,7 +441,7 @@ We will query the minter smart contract to get the number of NFTs already minted
       Address,
       AddressValue,
       ContractFunction,
-    } from 'https://unpkg.com/elven.js@0.14.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
 
     // (...) Init and login logic here, check how above ...
 
@@ -527,6 +527,12 @@ The list of classes:
 - `.elven-wc-pairing-item-confirm-msessage`
 
 For more info, check the demo in the `example` directory. Please let us know if you need more styling flexibility and options. Describe your use cases [here](https://github.com/elven-js/elven.js/issues).
+
+### xPortal Hub integration
+
+The Elven.js dApps can integrate with the xPortal Hub. You can read more on how to get your app accepted [here](https://multiversx.notion.site/How-to-submit-your-dApp-for-listing-in-the-xPortal-Hub-863f1005a56943fba38c0e0cb5b1186a).
+
+You don't have to do anything. It should just work when your app is accepted and published in the xPortal Hub.
 
 ### Working demos
 
