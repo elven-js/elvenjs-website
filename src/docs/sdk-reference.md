@@ -28,24 +28,37 @@ await ElvenJS.init(initOptions: InitOptions)
 **Typings**:
 ```typescript
 interface InitOptions {
-  apiUrl: string;
-  chainType: string;
-  apiTimeout: number;
-  // Remember to change it. Get yours here: https://cloud.walletconnect.com/sign-in
-  walletConnectV2ProjectId: string,
-  walletConnectV2RelayAddresses: string[],
-  onLoginPending?: () => void;
-  onLoggedIn?: () => void;
-  onLogout?: () => void;
-  onTxStarted: (tx: Transaction) => { uiPending(true); },
-  onTxSent: (tx: Transaction) => {}
-  onTxFinalized: (tx: Transaction) => {
-    tx?.hash && updateTxHashContainer(tx.hash);
-    uiPending(false);
-  },
-  onTxError: (tx: Transaction, error: string) => { uiPending(false); }
-  onQrPending: () => void;
-  onQrLoaded: () => void;
+  apiUrl?: string;
+  chainType?: string;
+  apiTimeout?: number;
+  walletConnectV2ProjectId?: string;
+  walletConnectV2RelayAddresses?: string[];
+  // Login
+  onLoginStart?: () => void;
+  onLoginEnd?: () => void;
+  onLoginSuccess?: () => void;
+  onLoginFailure?: (error: string) => void;
+  // Logout
+  onLogoutStart?: () => void;
+  onLogoutEnd?: () => void;
+  onLogoutSuccess?: () => void;
+  onLogoutFailure?: (error: string) => void;
+  // Qr
+  onQrPending?: () => void;
+  onQrLoaded?: () => void;
+  // Transaction
+  onTxStart?: (transaction: Transaction) => void;
+  onTxSent?: (transaction: Transaction) => void;
+  onTxFinalized?: (transaction: Transaction) => void;
+  onTxFailure?: (transaction: Transaction, error: string) => void;
+  // Signing
+  onSignMsgStart?: (message: string) => void;
+  onSignMsgFinalized?: (messageSignature: string) => void;
+  onSignMsgFailure?: (message: string, error: string) => void;
+  // Query
+  onQueryStart?: (queryArgs: QueryArguments) => void;
+  onQueryFinalized?: (queryResponse: ContractQueryResponse) => void;
+  onQueryFailure?: (queryArgs: QueryArguments, error: string) => void;
 }
 ```
 
@@ -53,25 +66,44 @@ The primary initialization function. It is responsible for synchronizing with th
 
 **Arguments**:
 
-- `apiUrl`MultiversX API URL - can be the public or private instance,
-- `chainType`Chain type identification - can be devnet, testnet, or mainnet,
+- `apiUrl`: MultiversX API URL - can be the public or private instance,
+- `chainType`: Chain type identification - can be devnet, testnet, or mainnet,
 - `apiTimeout`: The API call timeout in milliseconds. Maximum 10000,
 - `walletConnectV2ProjectId`: Get yours from https://cloud.walletconnect.com/sign-in,
 - `walletConnectV2RelayAddresses`: You can pass your custom WalletConnect relay adresses, by default it will use 'wss://relay.walletconnect.com'
-- `onLoginPending`: On login pending callback. It is used across all the auth providers,
-- `onLoggedIn`: On logged in callback. It is used across all the auth providers,
-- `onLogout`: On logout callback. It is used across all the auth providers,
-- `onTxStarted`: On transactions started callback. It is used across all the auth providers. You can use the transaction payload's current state,
-- `onTxSent`: On transactions sent callback. It is used across all the auth providers. The transaction sent, but not finalized on chain. You can get its hash at this point.
-- `onTxFinalized`: On transactions finalized callback. It is used across all the auth providers. You can use the transaction payload's current state.
-- `onTxError`: On transactions errors callback. You can catch errors and manage UI states.
-- `onQrPending`: Qr element load pending callback
-- `onQrLoaded`: QR element loaded callback
-- `onSignMsgStarted`: Used when the sign message operation started.
-- `onSignMsgError`: Used when there is an error while signing a message
-- `onSignMsgFinalized`: Used when signing message is finished and you can get the signature
+- `onLoginStart`: Triggered when the login process started
+- `onLoginEnd`: Triggered when the login process ended
+- `onLoginSuccess`: Triggered when the login process is successful
+- `onLoginFailure`: Triggered when the login process failed
+- `onLogoutStart`: Triggered when the logout process started
+- `onLogoutEnd`: Triggered when the logout process ended
+- `onLogoutSuccess`: Triggered when the logout process is successful
+- `onLogoutFailure`: Triggered when the logout process failed
+- `onQrPending`: Triggered when the Qr element started loading
+- `onQrLoaded`:  Triggered when the QR element finished loading
+- `onTxStart`: Triggered when the transaction process started
+- `onTxSent`: Triggered when the transaction is send, not finalized
+- `onTxFinalized`: Triggered when the transaction is finalized
+- `onTxFailure`: Triggered when the transaction sign and send filed
+- `onSignMsgStart`: Triggered when the message signing process stated
+- `onSignMsgFinalized`: Triggered when the message signing process finalized
+- `onSignMsgFailure`: Triggered when the message signing process failed
+- `onQueryStart`: Triggered when the query process started
+- `onQueryFinalized`: Triggered when the query process finalized
+- `onQueryFailure`: Triggered when the query process failed
+
+You can import required types directly from elven.js
+
+```typescript
+import {
+  Transaction,
+  QueryArguments,
+  ContractQueryResponse
+} from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+```
 
 **Usage example**:
+The [demo example](https://elvenjs.netlify.app/) initialization code.
 
 ```html
 <html>
@@ -79,7 +111,7 @@ The primary initialization function. It is responsible for synchronizing with th
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 
     const initElven = async () => {
       await ElvenJS.init(
@@ -90,18 +122,45 @@ The primary initialization function. It is responsible for synchronizing with th
           // Remember to change it. Get yours here: https://cloud.walletconnect.com/sign-in
           walletConnectV2ProjectId: '<your_wc_project_id_here>',
           walletConnectV2RelayAddresses: ['wss://relay.walletconnect.com'],
-          onLoginPending: () => { /* do something when login pending */ },
-          onLoggedIn: () => { /* do something when logged in */ },
-          onLogout: () => { /* do something when logged out */ },
-          onTxStarted: (tx) => { /* do something when transaction started */ },
-          onTxSent: (tx) => { /* do something when transaction was sent */ },
-          onTxFinalized: (tx) => { /* do something when transaction was finalized */ },
-          onTxError: (tx, error) => { /* do something when transaction error occured */ },
-          onQrPending: () => { /* do something when QR code element is loading */ },
-          onQrLoaded: () => { /* do something when QR code element is loaded */ },
-          onSignMsgStarted: (message) => { /* do something when signing message started */ },
-          onSignMsgError: (message, error) => { /* do something when there is an error while signing a message */ }
-          onSignMsgFinalized: (message, messageSignature) => { /* do something when signing message operation is finished */ }
+          // All callbacks are optional
+          // You could also rely on try catch to some extent, but callbacks in one place seems convenient
+          // Login callbacks:
+          onLoginStart: () => { uiPending(true) },
+          onLoginEnd: () => { uiPending(false) },
+          onLoginSuccess: () => { uiLoggedInState(true); },
+          onLoginFailure: (error) => { displayError(error); },
+          // Logout callbacks:
+          onLogoutStart: () => { uiPending(true) },
+          onLogoutEnd: () => { uiPending(false) },
+          onLogoutSuccess: () => { uiLoggedInState(false); },
+          onLogoutFailure: (error) => { displayError(error); },
+          // Transaction callbacks
+          onTxStart: (tx) => { uiPending(true); },
+          onTxSent: (tx) => { const hash = tx.getHash().toString(); hash && updateTxHashContainer(hash, true); },
+          onTxFinalized: (tx) => { tx?.hash && updateTxHashContainer(tx.hash); uiPending(false); },
+          onTxFailure: (tx, error) => { displayError(error); uiPending(false); },
+          // Qr code callbacks:
+          onQrPending: () => { uiPending(true); },
+          onQrLoaded: () => { uiPending(false); },
+          // Signing callbacks:
+          onSignMsgStart: (message) => { uiPending(true); },
+          onSignMsgFinalized: (message, messageSignature) => { messageSignature && updateOperationResultContainer(`➡️ The signature for "${message}" message:\n${messageSignature}`); uiPending(false); },
+          onSignMsgFailure: (message, error) => { displayError(error); uiPending(false); },
+          // Query callbacks:
+          onQueryStart: (queryArgs) => { uiPending(true); },
+          onQueryFinalized: (queryResponse) => {
+            // Manual decoding of a simple type (number here), there will be additional tools for that using ABI
+            // For now please check data converter in Buildo.dev: 
+            // https://github.com/xdevguild/buildo.dev/blob/main/components/operations/utils-operations/data-converters.tsx#L103
+            const hexVal = base64ToDecimalHex(queryResponse?.returnData?.[0]);
+            let intVal = 0;
+            if (hexVal) {
+              intVal = parseInt(hexVal, 16);
+            }
+            updateOperationResultContainer(`➡️ The result of the query is: ${intVal}`);
+            uiPending(false);
+          },
+          onQueryFailure: (queryArgs, error) => { displayError(error); uiPending(false); }
         }
       );
     }
@@ -140,6 +199,16 @@ One interface for logging in with all possible auth providers. It is the core fu
 - `loginMethod`: one of five login methods (ledger, mobile, web-wallet, x-alias, browser-extension) (for now, four of them are implemented)
 - `options` as options, you can pass the `token`, which is a unique string that can be used for signature generation and user verification. You can also define `qrCodeContainer`, the DOM element id or DOM element in which the mobile QR code will be displayed, and `callbackRoute` used for web-wallet.
 
+**Initialization callbacks**  
+Callbacks that will be triggered for that function
+
+```typescript
+onLoginStart?: () => void;
+onLoginEnd?: () => void;
+onLoginSuccess?: () => void;
+onLoginFailure?: (error: string) => void;
+```
+
 **Usage example**:
 
 ```html
@@ -152,7 +221,7 @@ One interface for logging in with all possible auth providers. It is the core fu
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -229,7 +298,7 @@ Logout function will remove the localStorage entries. It will work the same with
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -249,6 +318,16 @@ Logout function will remove the localStorage entries. It will work the same with
 </html>
 ```
 
+**Initialization callbacks**  
+Callbacks that will be triggered for that function
+
+```typescript
+onLogoutStart?: () => void;
+onLogoutEnd?: () => void;
+onLogoutSuccess?: () => void;
+onLogoutFailure?: (error: string) => void;
+```
+
 ### Signing and sending transactions
 
 **Function**:
@@ -266,6 +345,16 @@ The sign and send transaction handle one transaction at a time. This is basic fu
 
 - `transaction`: the sdk-js transaction class, the transaction instance is the same as the sdk-js one.
 
+**Initialization callbacks**  
+Callbacks that will be triggered for that function
+
+```typescript
+onTxStart?: (transaction: Transaction) => void;
+onTxSent?: (transaction: Transaction) => void;
+onTxFinalized?: (transaction: Transaction) => void;
+onTxFailure?: (transaction: Transaction, error: string) => void;
+```
+
 **Usage example**: 
 
 ```html
@@ -280,7 +369,7 @@ The sign and send transaction handle one transaction at a time. This is basic fu
       Address,
       TransactionPayload,
       TokenTransfer
-    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -329,6 +418,15 @@ await ElvenJS.signMessage(message: string, options?: { callbackUrl?: string })
 
 Sign a custom message using all supported providers. You will get the signature. You can verify the signature wherever you need it. It is usually done on the backend side. To verify, you can use [sdk-js](https://docs.multiversx.com/sdk-and-tools/sdk-js/sdk-js-cookbook#verifying-signatures). Or other MultiversX SDKs.
 
+**Initialization callbacks**  
+Callbacks that will be triggered for that function
+
+```typescript
+onSignMsgStart?: (message: string) => void;
+onSignMsgFinalized?: (messageSignature: string) => void;
+onSignMsgFailure?: (message: string, error: string) => void;
+```
+
 **Arguments**:
 
 - `message`: message to sign
@@ -344,7 +442,7 @@ Sign a custom message using all supported providers. You will get the signature.
   <script type="module">
     import {
       ElvenJS,
-    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -397,6 +495,15 @@ Querying smart contracts is possible with this function. You must pass the smart
 - `value` - the value to transfer. It is optional or can be set to 0
 - `caller` - also `Iaddress` interface, the same as an address, also optional
 
+**Initialization callbacks**  
+Callbacks that will be triggered for that function
+
+```typescript
+onQueryStart?: (queryArgs: QueryArguments) => void;
+onQueryFinalized?: (queryResponse: ContractQueryResponse) => void;
+onQueryFailure?: (queryArgs: QueryArguments, error: string) => void;
+```
+
 **Usage example**: 
 
 ```html
@@ -410,7 +517,7 @@ Querying smart contracts is possible with this function. You must pass the smart
       Address,
       AddressValue,
       ContractFunction,
-    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -423,16 +530,12 @@ Querying smart contracts is possible with this function. You must pass the smart
       .getElementById('button-query')
       .addEventListener('click', async () => {
         try {
-          const results = await ElvenJS.queryContract({
+          await ElvenJS.queryContract({
             address: new Address(nftMinterSmartContract),
             func: new ContractFunction('getMintedPerAddressTotal'),
             args: [new AddressValue(new Address(randomUserAddress))]
           });
-
-          // Manual decoding of a simple type (number here) with aa custom helper function, 
-          // there will be additional tools for that
-          const hexVal = base64ToDecimalHex(results?.returnData?.[0]);
-          console.log(hexVal)
+          // You can handle results parsing here or in the initialization callback as in the example
         } catch (e) {
           throw new Error(e?.message);
         }
@@ -522,6 +625,8 @@ Below is the list of exported helpers, classes, and types from sdk-js. You can r
 - `AddressType`
 - `AddressValue`
 - `SignableMessage`
+- `QueryArguments`
+- `ContractQueryResponse`
 
 You can import them directly from elven.js without the ElvenJS namespace. Like:
 
@@ -530,7 +635,7 @@ import {
   Address,
   ContractCallPayloadBuilder,
   ContractFunction
-} from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 ```
 
 There will probably be more of them, but the ElvenJS library should be as small as possible. Maybe some of them will land in separate libraries like the planned query results parser library.

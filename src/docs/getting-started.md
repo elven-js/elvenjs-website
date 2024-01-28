@@ -19,6 +19,10 @@ Elven.js is a tool designed to work in browsers without any build steps and inte
 
 The tool is a wrapper for [sdk-js](https://docs.multiversx.com/sdk-and-tools/sdk-js/) - a set of Typescript/Javascript libraries. But because the sdk-js toolset is quite extensive and has a lot of Node module dependencies, there is a need for a simple browser-only library. The Elven.js aspire to be something like that - a helpful plug-and-play solution that will give you the most basic functionalities. 
 
+<div class="docs-box docs-info-box">
+The quickest way to learn how to use elven.js is to check the source code of the simple example: <a href="https://elvenjs.netlify.app/" target="_blank">elvenjs.netlify.app</a>
+</div>
+
 ## What Elven.js can do?
 
 The fundamental functionality is connecting and logging in the user using auth providers. For now, Elven.js supports three of four existing - The MultiversX [browser extension](https://chrome.google.com/webstore/detail/multiversx-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm) (MultiversX Defi), [xPortal Mobile app](https://xportal.com/), and MultiversX Web Wallet. In the future, it will also support [Ledger Nano](https://www.ledger.com/) hardware wallet. It also supports [xPortal](https://xportal.com/) Hub integration and [xAlias](https://xalias.com/).
@@ -47,7 +51,7 @@ Let's see how to import it from the CDN:
 <html>
   <body>
     <script type="module">
-      import { ElvenJS } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+      import { ElvenJS } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 
       const initElven = async () => {
         await ElvenJS.init(
@@ -58,18 +62,26 @@ Let's see how to import it from the CDN:
             // Remember to change it. Get yours here: https://cloud.walletconnect.com/sign-in
             walletConnectV2ProjectId: '<your_wc_project_id_here>',
             walletConnectV2RelayAddresses: ['wss://relay.walletconnect.com'],
-            onLoginPending: () => {},
-            onLoggedIn: () => {},
-            onLogout: () => {},
-            onTxStarted: () => {},
-            onTxSent: () => {},
-            onTxFinalized: () => {},
-            onTxError: () => {},
+            onLoginStart: () => {},
+            onLoginEnd: () => {},
+            onLoginSuccess: () => {},
+            onLoginFailure: (error) => {},
+            onLogoutStart: () => {},
+            onLogoutEnd: () => {},
+            onLogoutSuccess: () => {},
+            onLogoutFailure: (error) => {},
+            onTxStart: (tx) => {},
+            onTxSent: (tx) => {},
+            onTxFinalized: (tx) => {},
+            onTxFailure: (tx, error) => {},
             onQrPending: () => {},
             onQrLoaded: () => {},
-            onSignMsgStarted: () => {},
-            onSignMsgFinalized: () => {},
-            onSignMsgError: () => {}
+            onSignMsgStart: (message) => {},
+            onSignMsgFinalized: (message, messageSignature) => {},
+            onSignMsgFailure: (message, error) => {},
+            onQueryStart: (queryArgs) => {},
+            onQueryFinalized: (queryResponse) => {},
+            onQueryFailure: (queryArgs, error) => {}
           }
         );
       }
@@ -80,7 +92,7 @@ Let's see how to import it from the CDN:
 </html>
 ```
 
-As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.15.0: `elven.js@0.15.0`).
+As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.16.0: `elven.js@0.16.0`).
 
 You can check the demo examples linked on the homepage.
 
@@ -105,18 +117,26 @@ onMount(() => {
       // Remember to change it. Get yours here: https://cloud.walletconnect.com/sign-in
       walletConnectV2ProjectId: '<your_wc_project_id_here>',
       walletConnectV2RelayAddresses: ['wss://relay.walletconnect.com'],
-      onLoginPending: () => {},
-      onLoggedIn: () => {},
-      onLogout: () => {},
-      onTxStarted: () => {},
-      onTxSent: () => {},
-      onTxFinalized: () => {},
-      onTxError: () => {},
+      onLoginStart: () => {},
+      onLoginEnd: () => {},
+      onLoginSuccess: () => {},
+      onLoginFailure: (error) => {},
+      onLogoutStart: () => {},
+      onLogoutEnd: () => {},
+      onLogoutSuccess: () => {},
+      onLogoutFailure: (error) => {},
+      onTxStart: (tx) => {},
+      onTxSent: (tx) => {},
+      onTxFinalized: (tx) => {},
+      onTxFailure: (tx, error) => {},
       onQrPending: () => {},
       onQrLoaded: () => {},
-      onSignMsgStarted: () => {},
-      onSignMsgFinalized: () => {},
-      onSignMsgError: () => {}
+      onSignMsgStart: (message) => {},
+      onSignMsgFinalized: (message, messageSignature) => {},
+      onSignMsgFailure: (message, error) => {},
+      onQueryStart: (queryArgs) => {},
+      onQueryFinalized: (queryResponse) => {},
+      onQueryFailure: (queryArgs, error) => {}
     });
   };
 
@@ -130,7 +150,7 @@ Because of the ability to adapt to any frontend framework Elven.js is an excelle
 
 ## Demo video
 
-Remember that the video will be outdated. Check the version and [changelog](https://github.com/elven-js/elven.js/blob/main/CHANGELOG.md).
+The video is a little bit outdated. Check the version and [changelog](https://github.com/elven-js/elven.js/blob/main/CHANGELOG.md). Update soon.
 
 <div class="embeded-media-container">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/tcTukpkjcQw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

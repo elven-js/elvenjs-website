@@ -44,38 +44,12 @@ To be able to login you need to initialize ElvenJs and then use the login functi
     // import ElvenJS parts from CDN 
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
-      await ElvenJS.init(
-        {
-          // Define the API endpoint (can be custom one)
-          apiUrl: 'https://devnet-api.multiversx.com',
-          // Define the chain type (devnet, mainnet, testnet)
-          chainType: 'devnet',
-          // Define the API timeout, max 10 sec on public endpoint
-          apiTimeout: 10000,
-          // Remember to change it. Get yours here: https://cloud.walletconnect.com/sign-in
-          walletConnectV2ProjectId: '<your_wc_project_id_here>',
-          // WalletConnectV2RelayAddresses are required only for custom addresses
-          // by default it will use ['wss://relay.walletconnect.com']
-          walletConnectV2RelayAddresses: ['wss://relay.walletconnect.com'],
-          // Define login callback functions
-          onLoginPending: () => { uiPending(true) },
-          onLoggedIn: () => { uiLoggedInState(true); uiPending(false) },
-          onLogout: () => { uiLoggedInState(false); },
-          // Define transactions callbacks (all are optional)
-          onTxStarted: (tx) => { uiPending(true); },
-          onTxSent: (tx) => { console.log('Tx sent, but not finalized on the chain!'); },
-          onTxFinalized: (tx) => { 
-            tx?.hash && updateTxHashContainer(tx.hash); uiPending(false);
-          },
-          onTxError: (tx, error) => { uiPending(false); },
-          onQrPending: () => { uiPending(true); },
-          onQrLoaded: () => { uiPending(false); },
-        }
-      );
+      // Check all possible InitOptions at https://www.elvenjs.com/docs/sdk-reference.html#initialization
+      await ElvenJS.init(...);
     }
 
     // Trigger the async init function 
@@ -164,9 +138,16 @@ For this example, let's omit the code responsible for initialization and auth. Y
       Address,
       TransactionPayload,
       TokenTransfer
-    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 
-    // (...) Init and login logic here, check how above
+    // Init ElvenJs 
+    const initElven = async () => {
+      // Check all possible InitOptions at https://www.elvenjs.com/docs/sdk-reference.html#initialization
+      await ElvenJS.init(...);
+    }
+
+    // Trigger the async init function 
+    initElven();
 
     const egldTransferAddress = 'erd17a4wydhhd6t3hhssvcp9g23ppn7lgkk4g2tww3eqzx4mlq95dukss0g50f';
 
@@ -243,9 +224,16 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
       TokenTransfer,
       TransferTransactionsFactory,
       GasEstimator,
-    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 
-    // (...) Init and login logic here, check how above 
+    // Init ElvenJs 
+    const initElven = async () => {
+      // Check all possible InitOptions at https://www.elvenjs.com/docs/sdk-reference.html#initialization
+      await ElvenJS.init(...);
+    }
+
+    // Trigger the async init function 
+    initElven();
 
     // ESDT address for demo purpose
     const esdtTransferAddress = 'erd17a4wydhhd6t3hhssvcp9g23ppn7lgkk4g2tww3eqzx4mlq95dukss0g50f';
@@ -318,9 +306,16 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
       SmartContract,
       ContractFunction,
       U32Value,
-    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 
-    // (...) Init and login logic here, check how above ... You need to define callbacks for handling transactions
+    // Init ElvenJs 
+    const initElven = async () => {
+      // Check all possible InitOptions at https://www.elvenjs.com/docs/sdk-reference.html#initialization
+      await ElvenJS.init(...);
+    }
+
+    // Trigger the async init function 
+    initElven();
 
     // Here is the Elven Tools demo minter smart contract on the devnet
     // The one we will be calling to mint the NFT
@@ -377,11 +372,16 @@ You can sign a message using your address as the key. But you don't have to worr
   <script type="module">
     import {
       ElvenJS,
-    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 
-    // Initialization first (see above) ... You need to define your callback for signing messages
-    
-    // Some other stuff here ...
+    // Init ElvenJs 
+    const initElven = async () => {
+      // Check all possible InitOptions at https://www.elvenjs.com/docs/sdk-reference.html#initialization
+      await ElvenJS.init(...);
+    }
+
+    // Trigger the async init function 
+    initElven();
 
     document
       .getElementById('button-tx')
@@ -441,9 +441,16 @@ We will query the minter smart contract to get the number of NFTs already minted
       Address,
       AddressValue,
       ContractFunction,
-    } from 'https://unpkg.com/elven.js@0.15.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
 
-    // (...) Init and login logic here, check how above ...
+    // Init ElvenJs 
+    const initElven = async () => {
+      // Check all possible InitOptions at https://www.elvenjs.com/docs/sdk-reference.html#initialization
+      await ElvenJS.init(...);
+    }
+
+    // Trigger the async init function 
+    initElven();
 
     // Here the same minter smart contract address as above. We will qery its function
     const nftMinterSmartContract = 'erd1qqqqqqqqqqqqqpgq5za2pty2tlfqhj20z9qmrrpjmyt6advcgtkscm7xep';
@@ -502,14 +509,14 @@ When you use `ElvenJS.signAndSendTransaction`, a couple of callbacks will be cal
 
 These are: 
 
-- `onTxStarted?: (transaction: Transaction) => void;`
+- `onTxStart?: (transaction: Transaction) => void;`
 - `onTxSent?: (transaction: Transaction) => void;`
 - `onTxFinalized?: (transaction: Transaction) => void;`
-- `onTxError?: (transaction: Transaction, error: string) => void;`
+- `onTxFailure?: (transaction: Transaction, error: string) => void;`
 
 They are self-explanatory. `onTxSent` will fire after sending (the transaction object will not contain the signature yet). The `onTxFinalized` will fire after the transaction is finalized on chain (the transaction object will contain the signature).
 
-In case of the error, the `onTxError` will additionally contain the error message.  
+In case of the error, the `onTxFailure` will additionally contain the error message.  
 
 ### Styling elements
 

@@ -1,22 +1,7 @@
 * {
   box-sizing: border-box;
-  scrollbar-width: auto;
+  scrollbar-width: thin;
   scrollbar-color: $color-main-contrast $color-main-light;
-}
-
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 10px;
-}
-
-*::-webkit-scrollbar-track {
-  background: $color-main-contrast2;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: $color-main-contrast;
-  border-radius: 6px;
-  border: 3px solid $color-main-light;
 }
 
 body {
