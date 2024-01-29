@@ -35,12 +35,10 @@ interface InitOptions {
   walletConnectV2RelayAddresses?: string[];
   // Login
   onLoginStart?: () => void;
-  onLoginEnd?: () => void;
   onLoginSuccess?: () => void;
   onLoginFailure?: (error: string) => void;
   // Logout
   onLogoutStart?: () => void;
-  onLogoutEnd?: () => void;
   onLogoutSuccess?: () => void;
   onLogoutFailure?: (error: string) => void;
   // Qr
@@ -72,11 +70,9 @@ The primary initialization function. It is responsible for synchronizing with th
 - `walletConnectV2ProjectId`: Get yours from https://cloud.walletconnect.com/sign-in,
 - `walletConnectV2RelayAddresses`: You can pass your custom WalletConnect relay adresses, by default it will use 'wss://relay.walletconnect.com'
 - `onLoginStart`: Triggered when the login process started
-- `onLoginEnd`: Triggered when the login process ended
 - `onLoginSuccess`: Triggered when the login process is successful
 - `onLoginFailure`: Triggered when the login process failed
 - `onLogoutStart`: Triggered when the logout process started
-- `onLogoutEnd`: Triggered when the logout process ended
 - `onLogoutSuccess`: Triggered when the logout process is successful
 - `onLogoutFailure`: Triggered when the logout process failed
 - `onQrPending`: Triggered when the Qr element started loading
@@ -99,7 +95,7 @@ import {
   Transaction,
   QueryArguments,
   ContractQueryResponse
-} from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 ```
 
 **Usage example**:
@@ -111,7 +107,7 @@ The [demo example](https://elvenjs.netlify.app/) initialization code.
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 
     const initElven = async () => {
       await ElvenJS.init(
@@ -126,12 +122,10 @@ The [demo example](https://elvenjs.netlify.app/) initialization code.
           // You could also rely on try catch to some extent, but callbacks in one place seems convenient
           // Login callbacks:
           onLoginStart: () => { uiPending(true) },
-          onLoginEnd: () => { uiPending(false) },
           onLoginSuccess: () => { uiLoggedInState(true); },
           onLoginFailure: (error) => { displayError(error); },
           // Logout callbacks:
           onLogoutStart: () => { uiPending(true) },
-          onLogoutEnd: () => { uiPending(false) },
           onLogoutSuccess: () => { uiLoggedInState(false); },
           onLogoutFailure: (error) => { displayError(error); },
           // Transaction callbacks
@@ -204,7 +198,6 @@ Callbacks that will be triggered for that function
 
 ```typescript
 onLoginStart?: () => void;
-onLoginEnd?: () => void;
 onLoginSuccess?: () => void;
 onLoginFailure?: (error: string) => void;
 ```
@@ -221,7 +214,7 @@ onLoginFailure?: (error: string) => void;
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -298,7 +291,7 @@ Logout function will remove the localStorage entries. It will work the same with
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -323,7 +316,6 @@ Callbacks that will be triggered for that function
 
 ```typescript
 onLogoutStart?: () => void;
-onLogoutEnd?: () => void;
 onLogoutSuccess?: () => void;
 onLogoutFailure?: (error: string) => void;
 ```
@@ -369,7 +361,7 @@ onTxFailure?: (transaction: Transaction, error: string) => void;
       Address,
       TransactionPayload,
       TokenTransfer
-    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -442,7 +434,7 @@ onSignMsgFailure?: (message: string, error: string) => void;
   <script type="module">
     import {
       ElvenJS,
-    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -517,7 +509,7 @@ onQueryFailure?: (queryArgs: QueryArguments, error: string) => void;
       Address,
       AddressValue,
       ContractFunction,
-    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -635,7 +627,7 @@ import {
   Address,
   ContractCallPayloadBuilder,
   ContractFunction
-} from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 ```
 
 There will probably be more of them, but the ElvenJS library should be as small as possible. Maybe some of them will land in separate libraries like the planned query results parser library.

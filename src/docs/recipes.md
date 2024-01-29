@@ -44,7 +44,7 @@ To be able to login you need to initialize ElvenJs and then use the login functi
     // import ElvenJS parts from CDN 
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -138,7 +138,7 @@ For this example, let's omit the code responsible for initialization and auth. Y
       Address,
       TransactionPayload,
       TokenTransfer
-    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -224,7 +224,7 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
       TokenTransfer,
       TransferTransactionsFactory,
       GasEstimator,
-    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -306,7 +306,7 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
       SmartContract,
       ContractFunction,
       U32Value,
-    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -372,7 +372,7 @@ You can sign a message using your address as the key. But you don't have to worr
   <script type="module">
     import {
       ElvenJS,
-    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -441,7 +441,7 @@ We will query the minter smart contract to get the number of NFTs already minted
       Address,
       AddressValue,
       ContractFunction,
-    } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {

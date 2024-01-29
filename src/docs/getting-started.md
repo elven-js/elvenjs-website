@@ -51,7 +51,7 @@ Let's see how to import it from the CDN:
 <html>
   <body>
     <script type="module">
-      import { ElvenJS } from 'https://unpkg.com/elven.js@0.16.0/build/elven.js';
+      import { ElvenJS } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
 
       const initElven = async () => {
         await ElvenJS.init(
@@ -63,11 +63,9 @@ Let's see how to import it from the CDN:
             walletConnectV2ProjectId: '<your_wc_project_id_here>',
             walletConnectV2RelayAddresses: ['wss://relay.walletconnect.com'],
             onLoginStart: () => {},
-            onLoginEnd: () => {},
             onLoginSuccess: () => {},
             onLoginFailure: (error) => {},
             onLogoutStart: () => {},
-            onLogoutEnd: () => {},
             onLogoutSuccess: () => {},
             onLogoutFailure: (error) => {},
             onTxStart: (tx) => {},
@@ -92,7 +90,7 @@ Let's see how to import it from the CDN:
 </html>
 ```
 
-As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.16.0: `elven.js@0.16.0`).
+As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.17.0: `elven.js@0.17.0`).
 
 You can check the demo examples linked on the homepage.
 
@@ -118,11 +116,9 @@ onMount(() => {
       walletConnectV2ProjectId: '<your_wc_project_id_here>',
       walletConnectV2RelayAddresses: ['wss://relay.walletconnect.com'],
       onLoginStart: () => {},
-      onLoginEnd: () => {},
       onLoginSuccess: () => {},
       onLoginFailure: (error) => {},
       onLogoutStart: () => {},
-      onLogoutEnd: () => {},
       onLogoutSuccess: () => {},
       onLogoutFailure: (error) => {},
       onTxStart: (tx) => {},
