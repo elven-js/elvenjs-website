@@ -38,6 +38,29 @@ img[src$='shadowed'] {
   border: 0;
 }
 
+.embeded-media-two-cols {
+  display: flex;
+  gap: 32px;
+
+  .embeded-media-col {
+    max-width: 100%;
+  }
+
+  iframe {
+    border: 0;
+    max-width: 100%;
+  }
+
+  .embed-media-header {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+  }
+}
+
 // Info, Warning, Error docs boxes
 
 .docs-box {

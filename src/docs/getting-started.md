@@ -144,12 +144,17 @@ onMount(() => {
 
 Because of the ability to adapt to any frontend framework Elven.js is an excellent choice for all widget-like implementations. Imaging WordPress or Shopify plugins with it. Or, for example, simple donation widgets for static hobby websites. You can find such an example here: [elrond-donate-widget-demo.netlify.app](https://elrond-donate-widget-demo.netlify.app/).
 
-## Demo video
+## Demo videos
 
-The video is a little bit outdated. Check the version and [changelog](https://github.com/elven-js/elven.js/blob/main/CHANGELOG.md). Update soon.
-
-<div class="embeded-media-container">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/tcTukpkjcQw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="embeded-media-two-cols">
+  <div class="embeded-media-col">
+    <div class="embed-media-header">Connect and disconnect walkthrough video with comments.</div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/VKuid5hOkYg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="embeded-media-col">
+    <div class="embed-media-header">The video is a little bit outdated. Check the version and <a href="https://github.com/elven-js/elven.js/blob/main/CHANGELOG.md" target="_blank">changelog</a>.</div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/tcTukpkjcQw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
 </div>
 
 ## Summary
