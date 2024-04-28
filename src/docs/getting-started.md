@@ -23,6 +23,19 @@ The tool is a wrapper for [sdk-js](https://docs.multiversx.com/sdk-and-tools/sdk
 The quickest way to learn how to use elven.js is to check the source code of the simple example: <a href="https://elvenjs.netlify.app/" target="_blank">elvenjs.netlify.app</a>
 </div>
 
+## Demo videos
+
+<div class="embeded-media-two-cols">
+  <div class="embeded-media-col">
+    <div class="embed-media-header">Connect and disconnect walkthrough video with comments.</div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/VKuid5hOkYg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="embeded-media-col">
+    <div class="embed-media-header">The video is a little bit outdated. Check the version and <a href="https://github.com/elven-js/elven.js/blob/main/CHANGELOG.md" target="_blank">changelog</a>.</div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/tcTukpkjcQw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+
 ## What Elven.js can do?
 
 The fundamental functionality is connecting and logging in the user using auth providers. For now, Elven.js supports three of four existing - The MultiversX [browser extension](https://chrome.google.com/webstore/detail/multiversx-defi-wallet/dngmlblcodfobpdpecaadgfbcggfjfnm) (MultiversX Defi), [xPortal Mobile app](https://xportal.com/), and MultiversX Web Wallet. In the future, it will also support [Ledger Nano](https://www.ledger.com/) hardware wallet. It also supports [xPortal](https://xportal.com/) Hub integration and [xAlias](https://xalias.com/).
@@ -51,7 +64,7 @@ Let's see how to import it from the CDN:
 <html>
   <body>
     <script type="module">
-      import { ElvenJS } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
+      import { ElvenJS } from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
 
       const initElven = async () => {
         await ElvenJS.init(
@@ -90,7 +103,7 @@ Let's see how to import it from the CDN:
 </html>
 ```
 
-As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.17.0: `elven.js@0.17.0`).
+As you can see here, we have a simplified HTML document where we import the Elven.js SDK parts. Always check the version number (the example from here is v0.18.0: `elven.js@0.18.0`).
 
 You can check the demo examples linked on the homepage.
 
@@ -142,20 +155,7 @@ onMount(() => {
 (...)
 ```
 
-Because of the ability to adapt to any frontend framework Elven.js is an excellent choice for all widget-like implementations. Imaging WordPress or Shopify plugins with it. Or, for example, simple donation widgets for static hobby websites. You can find such an example here: [elrond-donate-widget-demo.netlify.app](https://elrond-donate-widget-demo.netlify.app/).
-
-## Demo videos
-
-<div class="embeded-media-two-cols">
-  <div class="embeded-media-col">
-    <div class="embed-media-header">Connect and disconnect walkthrough video with comments.</div>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/VKuid5hOkYg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </div>
-  <div class="embeded-media-col">
-    <div class="embed-media-header">The video is a little bit outdated. Check the version and <a href="https://github.com/elven-js/elven.js/blob/main/CHANGELOG.md" target="_blank">changelog</a>.</div>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/tcTukpkjcQw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </div>
-</div>
+Because of the ability to adapt to any frontend framework Elven.js is an excellent choice for all widget-like implementations. Imaging WordPress or Shopify plugins with it. Or, for example, simple donation widgets for static hobby websites.
 
 ## Summary
 

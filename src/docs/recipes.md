@@ -44,7 +44,7 @@ To be able to login you need to initialize ElvenJs and then use the login functi
     // import ElvenJS parts from CDN 
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -136,9 +136,8 @@ For this example, let's omit the code responsible for initialization and auth. Y
       ElvenJS,
       Transaction,
       Address,
-      TransactionPayload,
       TokenTransfer
-    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -158,7 +157,13 @@ For this example, let's omit the code responsible for initialization and auth. Y
         updateTxHashContainer(false);
         const demoMessage = 'Transaction demo from Elven.js!';
 
-        const isGuarded = ElvenJS.storage.get('activeGuardian');
+        const isGuardian = ElvenJS.storage.get('activeGuardian');
+        const isXalias = ElvenJS.storage.get('loginMethod') === 'x-alias';
+        // Additional 50000 when there is an active guardian
+        // See more about gas limit calculation here: https://docs.multiversx.com/developers/gas-and-fees/overview/
+        const gasLimit = ((isGuardian || isXalias) ? 100000 : 50000) + 1500 * demoMessage.length;
+
+        const textEncoder = new TextEncoder();
         
         // predefined transaction, this is how it is usually built
         const tx = new Transaction({
@@ -168,13 +173,13 @@ For this example, let's omit the code responsible for initialization and auth. Y
           receiver: new Address(egldTransferAddress),
           // Calculate gas limit (check MultiversX docs)
           // You will need additional 50000 when using guardians
-          gasLimit: (isGuarded ? 100000 : 50000) + 1500 * demoMessage.length,
+          gasLimit: gasLimit,
           // Define the chain id (D for the devnet, T for the testnet, 1 for the mainnet)
           chainID: 'D',
           // Build transaction payload data, here very simple string
-          data: new TransactionPayload(demoMessage),
-          // EGLD value to send
-          value: TokenTransfer.egldFromAmount(0.001),
+          data: textEncoder.encode(demoMessage),
+          // EGLD value to send (using parseAmount from Elven.js)
+          value: parseAmount({ amount: '0.001', decimals: 18 }),
           // Your address, we can get it from the storage, because you should be loggedin
           sender: new Address(ElvenJS.storage.get('address')),
         });
@@ -222,9 +227,11 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
       ElvenJS,
       Address,
       TokenTransfer,
+      Token,
       TransferTransactionsFactory,
-      GasEstimator,
-    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
+      TransactionsFactoryConfig,
+      parseAmount
+    } from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -246,23 +253,22 @@ Below you will find an example of the ESDT transfer. What is ESDT? These are tok
 
         // We need to build the payment here, we need to provide some data
         // Token id, amount and decimal places (check sdk-js cookbook for more info)
-        const payment = TokenTransfer.fungibleFromAmount(
-          'BUILDO-890d14',
-          '1',
-          18
-        );
+        const tokenTransfer = new TokenTransfer({
+          token: new Token({ identifier: 'BUILDO-22c0a5' }),
+          amount: parseAmount({ amount: '1', decimals: 18 }),
+        });
 
         // Here we are preparing the transfer factory
-        // We use default GasEstimator - this way we don't have to worry about providing gas limit vale
-        const factory = new TransferTransactionsFactory(new GasEstimator());
+        const factory = new TransferTransactionsFactory({
+          config: new TransactionsFactoryConfig({ chainID: 'D' }),
+        });
 
         // And here we have actual transaction
         // It doesn't need the value field, because we don't send the EGLD
-        const tx = factory.createESDTTransfer({
-          tokenTransfer: transfer,
+        const tx = factory.createTransactionForESDTTokenTransfer({
           receiver: new Address(esdtTransferAddress),
           sender: new Address(ElvenJS.storage.get('address')),
-          chainID: 'D',
+          tokenTransfers: [tokenTransfer]
         });
 
         try {
@@ -302,11 +308,11 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
       ElvenJS,
       Transaction,
       Address,
-      TokenTransfer,
-      SmartContract,
-      ContractFunction,
+      TransactionsFactoryConfig,
+      SmartContractTransactionsFactory,
       U32Value,
-    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
+      parseAmount
+    } from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -327,23 +333,27 @@ Here we will mint an NFT on the [Elven Tools Minter Smart Contract](https://www.
       .addEventListener('click', async () => {
         updateTxHashContainer(false);
 
-        // Again, we are preparing the data payload using different helpers
-        // The function on smart contract is called 'mint'
-        // It also takes one argument which is the amount to mint
         const contractAddress = new Address(nftMinterSmartContract);
-        const contract = new SmartContract({ address: contractAddress });
 
         const isGuarded = ElvenJS.storage.get('activeGuardian');
 
-        const tx = contract.call({
-          caller: new Address(ElvenJS.storage.get('address')),
-          value: TokenTransfer.egldFromAmount(0.01),
-          func: new ContractFunction("mint"),
-          // You need 50000 more when using guardians
-          gasLimit: isGuarded ?  : 14050000 ? 14000000,
-          args: [new U32Value(1)],
-          chainID: "D"
-        })
+        const gasLimit = isGuardian ? 14050000 : 14000000;
+
+        const factory = new SmartContractTransactionsFactory({
+          config: new TransactionsFactoryConfig({ chainID: 'D' }),
+        });
+
+        // Again, we are preparing the data payload using different helpers
+        // The function on smart contract is called 'mint'
+        // It also takes one argument which is the amount to mint
+        const tx = factory.createTransactionForExecute({
+          sender: new Address(ElvenJS.storage.get('address')),
+          contract: new Address(contractAddress),
+          function: 'mint',
+          nativeTransferAmount: parseAmount({ amount: '0.01', decimals: 18 }),
+          gasLimit: BigInt(gasLimit),
+          arguments: [new U32Value(1)],
+        });
 
         try {
           // We still use the same ElvenJS function for that, 
@@ -372,7 +382,7 @@ You can sign a message using your address as the key. But you don't have to worr
   <script type="module">
     import {
       ElvenJS,
-    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
@@ -441,7 +451,7 @@ We will query the minter smart contract to get the number of NFTs already minted
       Address,
       AddressValue,
       ContractFunction,
-    } from 'https://unpkg.com/elven.js@0.17.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
 
     // Init ElvenJs 
     const initElven = async () => {
