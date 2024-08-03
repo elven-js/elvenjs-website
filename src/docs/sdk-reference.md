@@ -95,7 +95,7 @@ import {
   Transaction,
   QueryArguments,
   ContractQueryResponse
-} from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.19.0/build/elven.js';
 ```
 
 **Usage example**:
@@ -107,7 +107,7 @@ The [demo example](https://elvenjs.netlify.app/) initialization code.
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.19.0/build/elven.js';
 
     const initElven = async () => {
       await ElvenJS.init(
@@ -214,7 +214,7 @@ onLoginFailure?: (error: string) => void;
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.19.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -291,7 +291,7 @@ Logout function will remove the localStorage entries. It will work the same with
   <script type="module">
     import {
       ElvenJS
-    } from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.19.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -361,7 +361,7 @@ onTxFailure?: (transaction: Transaction, error: string) => void;
       Address,
       TransactionPayload,
       TokenTransfer
-    } from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.19.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -434,7 +434,7 @@ onSignMsgFailure?: (message: string, error: string) => void;
   <script type="module">
     import {
       ElvenJS,
-    } from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.19.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -509,7 +509,7 @@ onQueryFailure?: (queryArgs: QueryArguments, error: string) => void;
       Address,
       AddressValue,
       ContractFunction,
-    } from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
+    } from 'https://unpkg.com/elven.js@0.19.0/build/elven.js';
 
     // Initialization first (see above) ...
     
@@ -637,7 +637,7 @@ import {
   Address,
   ContractCallPayloadBuilder,
   ContractFunction
-} from 'https://unpkg.com/elven.js@0.18.0/build/elven.js';
+} from 'https://unpkg.com/elven.js@0.19.0/build/elven.js';
 ```
 
 There will probably be more of them, but the ElvenJS library should be as small as possible. Maybe some of them will land in separate libraries like the planned query results parser library.
