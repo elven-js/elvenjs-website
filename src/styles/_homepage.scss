@@ -2,16 +2,32 @@
   text-align: center;
   margin-top: 150px;
 
+  &.with-info-box {
+    margin-top: 80px;
+  }
+
   @media screen and (max-width: 1366px) {
     margin-top: 110px;
+
+    &.with-info-box {
+      margin-top: 60px;
+    }
   }
 
   @media screen and (max-width: 800px) {
     margin-top: 60px;
+
+    &.with-info-box {
+      margin-top: 40px;
+    }
   }
 
   @media screen and (max-width: 600px) {
     font-size: 30px;
+
+    &.with-info-box {
+      margin-top: 10px;
+    }
   }
 
   a {
